@@ -1,17 +1,60 @@
 <!DOCTYPE html>
 <html>
+
     <head>
-      <title>Example</title>
+      <title>PCTR</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-
-      <!-- Do not add `link` tags-->
+      <!-- Title icon -->
       <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-
-      <!-- Do not add `script` tags-->
+      <!-- Header fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Bungee+Outline|Fascinate+Inline|Limelight|Monoton|Sacramento|Satisfy" rel="stylesheet">
+      <!-- Body fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+      <!-- Scripts -->
       <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
+
     <body>
-      <h1>Browser Template</h1>
+
+      <!-- Landing Page - Start -->
+      <div id="auth-view">
+        <!-- Notification Banner - Start -->
+        <div class="notification-banner" id="notification-banner"></div>
+        <!-- Notification Banner - End -->
+
+        <!-- Primary Header - Start-->
+        <h1 class="name"> PCTR </h1>
+        <!-- Primary Header - End -->
+
+        <!-- Log-in Fields - Start -->
+        <div class="login" id="login">
+          <form id="login-form" class="login-form">
+            <input type="email" class="auth-input auth-email login-element" name="credentials[email]" placeholder="Email">
+            <input type="password" class="auth-input auth-password login-element" name="credentials[password]" placeholder="Password"><br>
+            <input type="submit" class="login-btn login-element" value="LOGIN">
+            <div class="sign-up-toggle login-element" id="sign-up-toggle">Sign up?</div>
+          </form>
+        </div>
+        <!-- Log-in Fields - End -->
+
+        <!-- Sign-Up Fields - Start -->
+        <div class="sign-up" id="sign-up">
+          <form id="sign-up-form" class="sign-up-form">
+            <input type="email" name="credentials[email]" class="auth-input auth-email sign-up-element" value="" placeholder="Email">
+            <input type="password" name="credentials[password]" class="auth-input auth-password sign-up-element" value="" placeholder="Password">
+            <input type="password" name="credentials[password_confirmation]" class="auth-input auth-password-confirmation sign-up-element" value="" placeholder="Password Confirmation"><br>
+            <input type="submit" class="login-btn sign-up-element" value="SIGN UP">
+            <div class="sign-in-toggle sign-up-element" id="sign-in-toggle">Sign in?</div>
+          </form>
+        </div>
+        <!-- Sign-Up Fields - End -->
+
+      </div>
+      <!-- Landing Page - End -->
+
+      <!-- Carousel Page - Start -->
+      <!-- Carousel Page - End -->
+
     </body>
 </html>

@@ -1,2 +1,106 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import "colors";
+
+// ---------------Global - Start---------------
+body {
+  font-family: 'Raleway', sans-serif;
+}
+// ---------------Global - End---------------
+
+// ------------Landing Page - Start ---------------
+#auth-view {
+  // setting landing page view to size of viewport
+  height: 100vh;
+  width: 100vw;
+  // Boston Aerial
+  background: url('https://i.imgur.com/mB2Gj8Y.jpg') no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.name {
+  color: $white;
+  font-family: 'Bungee Outline', cursive;
+  // font-family: 'Sacramento', cursive;
+  // font-family: 'Monoton', cursive;
+  // font-family: 'Limelight', cursive;
+  font-size: 11em;
+}
+
+.login,
+.sign-up {
+  background-color: transparent;
+  width: 300px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  margin-top: 80px;
+}
+
+.auth-input {
+  border-radius: 6px;
+  width: 225px;
+  padding: 8px;
+  outline: none;
+  border: 0;
+}
+
+.auth-input::placeholder {
+  color: $sandy-brown;
+  opacity: 1;
+}
+
+.login-btn {
+  padding: 8px;
+  width: 225px;
+  border-radius: 6px;
+  color: $white;
+  border: 2px solid $white;
+  background-color: transparent;
+  transition: background 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+  background: $white;
+  color: $sandy-brown;
+}
+
+.login-element,
+.sign-up-element {
+  margin-bottom: 12px;
+}
+
+.sign-up-toggle,
+.sign-in-toggle {
+  color: $white;
+}
+
+.sign-up-toggle:hover,
+.sign-in-toggle:hover {
+  cursor: pointer;
+  color: $blue;
+}
+
+.sign-up-form,
+.login-form {
+  border: 4px solid $white;
+  border-radius: 12px;
+  padding: 35px;
+  padding-top: 46px;
+}
+
+.notification-banner {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.notification-banner > .alert {
+  border-radius: 0;
+}
+
+// ---------------Landing Page - End---------------
