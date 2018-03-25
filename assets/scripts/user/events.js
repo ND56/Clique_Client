@@ -62,12 +62,17 @@ const onEditPassword = (event) => {
 
 const onSelectUploadImagesView = (event) => {
   event.preventDefault()
-  console.log('Upload Image button works!')
+  ui.uploadImagesView()
 }
 
 const onSelectViewMyImagesView = (event) => {
   event.preventDefault()
-  console.log('My Images button works!')
+  ui.myImagesView()
+}
+
+const onReturnToCarouselView = (event) => {
+  event.preventDefault()
+  ui.returnToCarouselView()
 }
 
 module.exports = {
@@ -79,5 +84,6 @@ module.exports = {
   onToggleEditPwdModal,
   onSelectUploadImagesView,
   onSelectViewMyImagesView,
-  onEditPassword
+  onEditPassword,
+  onReturnToCarouselView
 }
