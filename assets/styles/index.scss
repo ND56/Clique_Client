@@ -2,9 +2,11 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import "colors";
+@import "variables";
 
 // ---------------Global - Start---------------
 body {
+  background-color: $bootstrap-gray;
   font-family: 'Raleway', sans-serif;
 }
 // ---------------Global - End---------------
@@ -12,13 +14,13 @@ body {
 // ------------Landing Page - Start ---------------
 #auth-view {
   // setting landing page view to size of viewport
-  height: 100vh;
-  width: 100vw;
   // Boston Aerial
   background: url('https://i.imgur.com/mB2Gj8Y.jpg') no-repeat center center fixed;
   background-size: cover;
-  text-align: center;
+  height: 100vh;
   padding-top: 50px;
+  text-align: center;
+  width: 100vw;
 }
 
 .name {
@@ -33,20 +35,20 @@ body {
 .login,
 .sign-up {
   background-color: transparent;
-  width: 300px;
+  border-radius: 5px;
   height: 300px;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 5px;
   margin-top: 80px;
+  width: 300px;
 }
 
 .auth-input {
-  border-radius: 6px;
-  width: 225px;
-  padding: 8px;
-  outline: none;
   border: 0;
+  border-radius: 6px;
+  outline: none;
+  padding: 8px;
+  width: 225px;
 }
 
 .auth-input::placeholder {
@@ -55,13 +57,13 @@ body {
 }
 
 .login-btn {
-  padding: 8px;
-  width: 225px;
+  background-color: transparent;
+  border: 2px solid $white;
   border-radius: 6px;
   color: $white;
-  border: 2px solid $white;
-  background-color: transparent;
+  padding: 8px;
   transition: background 0.3s ease-in-out;
+  width: 225px;
 }
 
 .login-btn:hover {
@@ -102,5 +104,155 @@ body {
 .notification-banner > .alert {
   border-radius: 0;
 }
-
 // ---------------Landing Page - End---------------
+
+// ---------------Carousel Page - Start---------------
+
+// Change password modal - Start
+.change-pw-modal-content {
+  width: 500px;
+  padding: 16px;
+  padding-bottom: 11px;
+  position: relative;
+  left: 23%;
+  top: 80px;
+}
+
+.close-modal {
+  float: right !important;
+  background: transparent;
+  border: none;
+  position: relative;
+  bottom: 7px;
+  left: 6px;
+}
+
+.new-label {
+  position: relative;
+  bottom: 10px;
+  left: 1px;
+}
+
+.current-label {
+  position: relative;
+  top: 13px;
+  left: 4px;
+}
+
+@media (max-width: 991px) {
+  .change-pw-modal-content {
+    left: 10%;
+  }
+}
+
+@media (max-width: 767px) {
+  .change-pw-modal-content {
+    left: 17%;
+  }
+
+  .new-label {
+    position: relative;
+    bottom: 0px;
+    left: 0px;
+  }
+
+  .current-label {
+    position: relative;
+    top: 0px;
+    left: 0px;
+  }
+}
+
+@media (max-width: 716px) {
+  .change-pw-modal-content {
+    left: 16%;
+  }
+}
+
+@media (max-width: 681px) {
+  .change-pw-modal-content {
+    left: 13%;
+  }
+}
+
+@media (max-width: 623px) {
+  .change-pw-modal-content {
+    left: 10%;
+  }
+}
+
+@media (max-width: 582px) {
+  .change-pw-modal-content {
+    left: 6%;
+  }
+}
+
+@media (max-width: 555px) {
+  .change-pw-modal-content {
+    left: 13%;
+    width: 400px;
+  }
+}
+
+@media (max-width: 489px) {
+  .change-pw-modal-content {
+    left: 8%;
+  }
+}
+
+@media (max-width: 450px) {
+  .change-pw-modal-content {
+    left: 0;
+  }
+}
+
+@media (max-width: 413px) {
+  .change-pw-modal-content {
+    left: -6px;
+  }
+}
+
+@media (max-width: 405px) {
+  .change-pw-modal-content {
+    left: -10px;
+  }
+}
+
+// Change password modal - End
+
+.carousel-nav {
+  color: black;
+}
+
+.navbar-brand {
+  font-family: 'Bungee Outline', cursive;
+  font-size: 3em;
+}
+
+.carousel-control {
+  width: 0;
+}
+
+.left {
+  left: calc($carousel-image-width - 120px);
+}
+
+.right {
+  left: calc($carousel-image-width - 120px);
+}
+
+// .img-constrain {
+//   height: 300px;
+//   width: 300px;
+// }
+
+.img-constrain {
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 570px;
+  max-width: $carousel-image-width;
+  width: auto;
+}
+// ---------------Carousel Page - End---------------

@@ -37,9 +37,34 @@ const onSignUp = (event) => {
     .catch(ui.onSignUpFailure)
 }
 
+const onLogOut = (event) => {
+  event.preventDefault()
+  console.log('Log Out button works!')
+}
+
+const onEditPassword = (event) => {
+  event.preventDefault()
+  console.log('Edit Password button works!')
+  $('#change-pw-modal').modal('show')
+}
+
+const onUploadImage = (event) => {
+  event.preventDefault()
+  console.log('Upload Image button works!')
+}
+
+const onViewMyImages = (event) => {
+  event.preventDefault()
+  console.log('My Images button works!')
+}
+
 module.exports = {
   onSignIn,
   onToggleSignUp,
   onToggleSignIn,
-  onSignUp
+  onSignUp,
+  onLogOut,
+  onEditPassword,
+  onUploadImage,
+  onViewMyImages
 }
