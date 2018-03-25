@@ -6,7 +6,8 @@ const onSignInSuccess = function (apiResponse) {
   // things like user._id, user.email, user.token, etc.
   store.user = apiResponse.user
   // end
-  notification('success', 'Successfully Signed In')
+  notification.notification('success', 'Successfully Signed In')
+  notification.universalToast('success', 'Success!', 'Successfully signed in!')
   // change placeholder in dropdown label to user email
   $('#user-email-dropdown').text(store.user.email)
   // end
@@ -24,11 +25,11 @@ const onSignInSuccess = function (apiResponse) {
 }
 
 const onSignInFailure = function () {
-  notification('danger', 'Login Unsuccessful')
+  notification.notification('danger', 'Login Unsuccessful')
 }
 
 const onSignUpSuccess = function () {
-  notification('success', 'Successfully Signed Up')
+  notification.notification('success', 'Successfully Signed Up')
   $('#sign-up').hide()
   $('#login').show()
   // clearing sign up form on sign up success
@@ -39,7 +40,7 @@ const onSignUpSuccess = function () {
 }
 
 const onSignUpFailure = function () {
-  notification('danger', 'Sign Up Unsuccessful')
+  notification.notification('danger', 'Sign Up Unsuccessful')
 }
 
 const onLogOutSuccess = () => {
@@ -56,14 +57,14 @@ const onLogOutSuccess = () => {
   if (store.view === 'carousel') {
     $('#carousel-view').hide()
   }
-  notification('success', 'Successfully Logged Out')
+  notification.notification('success', 'Successfully Logged Out')
   $('#static-nav').hide()
   $('#auth-view').show()
   store.view = 'landing page'
 }
 
 const onLogOutFailure = () => {
-  notification('danger', 'Log-Out Unsuccessful')
+  notification.notification('danger', 'Log-Out Unsuccessful')
 }
 
 const onChangePwdSuccess = () => {
@@ -73,11 +74,11 @@ const onChangePwdSuccess = () => {
     this.reset()
   })
   // end
-  notification('success', 'Password Successfully Changed')
+  notification.notification('success', 'Password Successfully Changed')
 }
 
 const onChangePwdFailure = () => {
-  notification('danger', 'Failed to Edit Password')
+  notification.notification('danger', 'Failed to Edit Password')
 }
 
 const uploadImagesView = () => {
