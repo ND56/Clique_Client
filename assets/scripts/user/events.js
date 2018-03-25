@@ -1,6 +1,7 @@
 const getFormFields = require('../../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
+const store = require('../store.js')
 
 // const authHandlers = function () {
 //   $('#login').on('submit', onSignIn)
@@ -24,8 +25,8 @@ const onSignIn = function (event) {
   const data = getFormFields(event.target)
   console.log(data)
   api.signIn(data)
-  .then(ui.onSignInSuccess)
-  .catch(ui.onSignInFailure)
+    .then(ui.onSignInSuccess)
+    .catch(ui.onSignInFailure)
 }
 
 const onSignUp = (event) => {
@@ -40,6 +41,10 @@ const onSignUp = (event) => {
 const onLogOut = (event) => {
   event.preventDefault()
   console.log('Log Out button works!')
+  console.log(store.user.token)
+  api.logOut()
+    .then(ui.onLogOutSuccess)
+    .catch(ui.onLogOutFailure)
 }
 
 const onEditPassword = (event) => {

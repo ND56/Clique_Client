@@ -1,5 +1,5 @@
 const apiUrl = require('../config')
-console.log(apiUrl)
+const store = require('../store.js')
 
 const signIn = function (data) {
   return $.ajax({
@@ -34,8 +34,20 @@ const changePw = function (data) {
   })
 }
 
+const logOut = () => {
+  return $.ajax({
+    url: apiUrl + '/sign-out/' + store.user._id,
+    method: 'DELETE',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
-  changePw
+  changePw,
+  logOut
 }
