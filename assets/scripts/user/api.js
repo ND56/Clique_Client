@@ -68,11 +68,23 @@ const getImages = () => {
   })
 }
 
+const deleteImage = () => {
+  return $.ajax({
+    url: apiUrl + '/images/' + store.currentImageID,
+    method: 'DELETE',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
   changePw,
   logOut,
   changePassword,
-  getImages
+  getImages,
+  deleteImage
 }

@@ -101,7 +101,7 @@ const uploadImagesView = () => {
 }
 
 const myImagesView = (apiResponse) => {
-  // updating nav bar - start
+  // updating nav bar - START
   if (store.view === 'carousel') {
     $('#carousel-view').hide()
     $('#my-images-page').show()
@@ -115,27 +115,22 @@ const myImagesView = (apiResponse) => {
     $('#my-images-li').prop('id', 'upload-image-li')
   }
   store.view = 'my images'
-  // updating nav bar - end
-  // populate my images div - start
-  console.log(apiResponse.images)
-  console.log(apiResponse.images[0]._id) // worked
-  console.log(apiResponse.images[0].title) // worked
-  console.log(apiResponse.images[0].url) // worked
-  console.log(apiResponse.images[0].description) // undefined
-  console.log(apiResponse.images[0]._owner) // just an ID
-  console.log(apiResponse.images[0].tags) // empty array
+  // updating nav bar - END
+
+  // populate images - START
+  // ownership syntax (for eventual use; currently populating all)
   // const personalImagesArr = apiResponse.images.filter(function (image) {
   //   return image.user.email === store.user.email
   // })
   const myImagesReadout = templateMyImages({ images: apiResponse.images })
   $('#my-images-page').append(myImagesReadout)
-  // we will need to fix images with something like the below
-  // $("div[data-class='5-" + store.npc.id + "']").css('background-image', 'url(https://imgur.com/GGHd4MP.png)')
-  // $("div[data-id='image-" + apiResponse.images[0]._id + "']").css('background-image', 'url(https://nmd-wdi-bucket.s3.amazonaws.com/1b2a7f62f78ce7ac1049a022a899928c.jpg)')
-  // $("div[data-id='image-5ab5a7d5b2108b19b7d5b991']").css('background-image', 'url(https://nmd-wdi-bucket.s3.amazonaws.com/1b2a7f62f78ce7ac1049a022a899928c.jpg)')
+  console.log(apiResponse.images)
+  console.log(store.user._id)
+  // using jquery to add correct image to each handlebars element
   for (let i = 0; i < apiResponse.images.length; i++) {
     $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
   }
+  // populate images - END
 }
 
 const returnToCarouselView = () => {
@@ -154,6 +149,15 @@ const returnToCarouselView = () => {
   store.view = 'carousel'
 }
 
+const deleteImageSuccess = () => {
+  notification.universalToast('success', 'Success!', 'Successfully deleted image!')
+  $("div[data-id='wrapper-" + store.currentImageID + "']").hide()
+}
+
+const deleteImageFailure = () => {
+  notification.universalToast('error', 'Error!', 'Failed to delete image!') // would want this to be red
+}
+
 module.exports = {
   onSignInSuccess,
   onSignInFailure,
@@ -165,5 +169,7 @@ module.exports = {
   onChangePwdFailure,
   uploadImagesView,
   returnToCarouselView,
-  myImagesView
+  myImagesView,
+  deleteImageSuccess,
+  deleteImageFailure
 }
