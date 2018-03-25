@@ -41,13 +41,26 @@ const onSignUpFailure = function () {
 const onLogOutSuccess = () => {
   $('#carousel-view').hide()
   $('#auth-view').show()
-  // clearing notification banner (I noticed banner persisted after logout)
-  $('.notification-banner').html('')
+  notification('success', 'Successfully Logged Out')
   // end
 }
 
 const onLogOutFailure = () => {
-  console.log('Sign out fail')
+  notification('danger', 'Log-Out Unsuccessful')
+}
+
+const onChangePwdSuccess = () => {
+  $('#change-pw-modal').modal('hide')
+  // clearing change pwd form on success
+  $('#change-pw-form').each(function () {
+    this.reset()
+  })
+  // end
+  notification('success', 'Password Successfully Changed')
+}
+
+const onChangePwdFailure = () => {
+  notification('danger', 'Failed to Edit Password')
 }
 
 module.exports = {
@@ -56,5 +69,7 @@ module.exports = {
   onSignUpSuccess,
   onSignUpFailure,
   onLogOutSuccess,
-  onLogOutFailure
+  onLogOutFailure,
+  onChangePwdSuccess,
+  onChangePwdFailure
 }

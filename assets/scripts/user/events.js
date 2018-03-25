@@ -47,18 +47,25 @@ const onLogOut = (event) => {
     .catch(ui.onLogOutFailure)
 }
 
-const onEditPassword = (event) => {
+const onToggleEditPwdModal = (event) => {
   event.preventDefault()
-  console.log('Edit Password button works!')
   $('#change-pw-modal').modal('show')
 }
 
-const onUploadImage = (event) => {
+const onEditPassword = (event) => {
+  event.preventDefault()
+  const packagedEditPwdData = getFormFields(event.target)
+  api.changePassword(packagedEditPwdData)
+    .then(ui.onChangePwdSuccess)
+    .catch(ui.onChangePwdFailure)
+}
+
+const onSelectUploadImagesView = (event) => {
   event.preventDefault()
   console.log('Upload Image button works!')
 }
 
-const onViewMyImages = (event) => {
+const onSelectViewMyImagesView = (event) => {
   event.preventDefault()
   console.log('My Images button works!')
 }
@@ -69,7 +76,8 @@ module.exports = {
   onToggleSignIn,
   onSignUp,
   onLogOut,
-  onEditPassword,
-  onUploadImage,
-  onViewMyImages
+  onToggleEditPwdModal,
+  onSelectUploadImagesView,
+  onSelectViewMyImagesView,
+  onEditPassword
 }
