@@ -5,7 +5,8 @@ const events = require('./user/events')
 $(() => {
   // $('#login').hide()
   $('#sign-up').hide()
-  $('#auth-view').hide()
+  // $('#auth-view').hide()
+  $('#carousel-view').hide()
 
   $('#my-images-li').on('click', events.onViewMyImages)
   $('#upload-image-li').on('click', events.onUploadImage)
