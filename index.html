@@ -127,40 +127,6 @@
         <!-- Image info; Part of carousel? Or some kind of div underndeath?  -->
         <!-- Image Info - End -->
 
-        <!-- Change Password Modal - Start -->
-        <div class="modal fade" id="change-pw-modal" tabindex="-1">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content change-pw-modal-content" id="change-pw-modal-content">
-              <div>
-                <button type="button" class="close-modal" data-dismiss="modal"><span>&times;</span></button>
-              </div>
-              <div class="space-div"></div>
-              <!-- start form for change pw modal-->
-              <form class="form-horizontal" id="change-pw-form">
-                <div class="form-group">
-                  <label for="inputPassword1" class="col-sm-2 control-label current-label">Current Password</label>
-                  <div class="input-div col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword1" name="passwords[old]" placeholder="Current Password">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword2" class="col-sm-2 control-label new-label">New Password</label>
-                  <div class="input-div col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword2" name="passwords[new]" placeholder="New Password">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default modal-button">Change Password!</button>
-                  </div>
-                </div>
-              </form>
-              <!-- end form for change pw modal-->
-            </div>
-          </div>
-        </div>
-        <!-- Change Password Modal - End -->
-
         <!-- Notification Banner - Start -->
         <div class="notification-banner"></div>
         <!-- Notification Banner - End -->
@@ -178,6 +144,40 @@
       <div class="my-images-page-wrapper" id="my-images-page">
       </div>
       <!-- My Images Page - End -->
+
+      <!-- Change Password Modal - Start -->
+      <div class="modal fade" id="change-pw-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content change-pw-modal-content" id="change-pw-modal-content">
+            <div>
+              <button type="button" class="close-modal" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="space-div"></div>
+            <!-- start form for change pw modal-->
+            <form class="form-horizontal" id="change-pw-form">
+              <div class="form-group">
+                <label for="inputPassword1" class="col-sm-2 control-label current-label">Current Password</label>
+                <div class="input-div col-sm-10">
+                  <input type="password" class="form-control" id="inputPassword1" name="passwords[old]" placeholder="Current Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword2" class="col-sm-2 control-label new-label">New Password</label>
+                <div class="input-div col-sm-10">
+                  <input type="password" class="form-control" id="inputPassword2" name="passwords[new]" placeholder="New Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default modal-button">Change Password!</button>
+                </div>
+              </div>
+            </form>
+            <!-- end form for change pw modal-->
+          </div>
+        </div>
+      </div>
+      <!-- Change Password Modal - End -->
 
     </body>
 </html>
