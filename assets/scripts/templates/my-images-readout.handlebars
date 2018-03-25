@@ -1,0 +1,18 @@
+{{#each images as |image|}}
+  <!-- wrapper -->
+    <div class="image-readout-wrapper col-sm-3 col-sm-offset-1 col-xs-4 col-xs-offset-2" data-id="wrapper-{{image._id}}">
+      <!-- image title -->
+      <div class="image-readout-title"><span data-id="title-{{image._id}}">{{image.title}}</span></div>
+      <!-- image itself ****** use jquery to edit the background-image property to the appropriate image -->
+      <div class="image-readout-image" data-id="image-{{image._id}}"></div>
+      <!-- image description -->
+      <div class="image-readout-description"><span class="image-readout-field">Description:</span> <span class="image-readout-value" data-id="description-{{image._id}}">{{image.description}}</span></div>
+      <!-- image owner -->
+      <div class="image-readout-owner"><span class="image-readout-field">Owner:</span> <span class="image-readout-value" data-id="owner-{{image._id}}">{{image._owner}}</span></div>
+      <!-- image tags -->
+      <div class="image-readout-tags"><span class="image-readout-field">Tags:</span> <span class="image-readout-value" data-id="tags-{{image._id}}">{{image.tags}}</span></div>
+      <!-- edit/delete buttons -->
+      <button id="edit-image-button" class="btn btn-default edit-image-button" data-id="edit-{{image._id}}">Edit Image</button>
+      <button id="delete-image-button" class="btn btn-default delete-image-button" data-id="delete-{{image._id}}">Delete Image</button>
+    </div>
+{{/each}}

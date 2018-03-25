@@ -1,5 +1,6 @@
 const notification = require('../../../lib/notifications')
 const store = require('../store.js')
+const templateMyImages = require('../templates/my-images-readout.handlebars')
 
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
@@ -99,22 +100,42 @@ const uploadImagesView = () => {
   store.view = 'upload images'
 }
 
-const myImagesView = () => {
+const myImagesView = (apiResponse) => {
+  // updating nav bar - start
   if (store.view === 'carousel') {
     $('#carousel-view').hide()
     $('#my-images-page').show()
     $('#my-images-li a').text('Carousel')
     $('#my-images-li').prop('id', 'carousel-li')
-    // change my images to carousel
   }
   if (store.view === 'upload images') {
     $('#upload-images-page').hide()
     $('#my-images-page').show()
     $('#my-images-li a').text('Upload Image')
     $('#my-images-li').prop('id', 'upload-image-li')
-    // change images to upload
   }
   store.view = 'my images'
+  // updating nav bar - end
+  // populate my images div - start
+  console.log(apiResponse.images)
+  console.log(apiResponse.images[0]._id) // worked
+  console.log(apiResponse.images[0].title) // worked
+  console.log(apiResponse.images[0].url) // worked
+  console.log(apiResponse.images[0].description) // undefined
+  console.log(apiResponse.images[0]._owner) // just an ID
+  console.log(apiResponse.images[0].tags) // empty array
+  // const personalImagesArr = apiResponse.images.filter(function (image) {
+  //   return image.user.email === store.user.email
+  // })
+  const myImagesReadout = templateMyImages({ images: apiResponse.images })
+  $('#my-images-page').append(myImagesReadout)
+  // we will need to fix images with something like the below
+  // $("div[data-class='5-" + store.npc.id + "']").css('background-image', 'url(https://imgur.com/GGHd4MP.png)')
+  // $("div[data-id='image-" + apiResponse.images[0]._id + "']").css('background-image', 'url(https://nmd-wdi-bucket.s3.amazonaws.com/1b2a7f62f78ce7ac1049a022a899928c.jpg)')
+  // $("div[data-id='image-5ab5a7d5b2108b19b7d5b991']").css('background-image', 'url(https://nmd-wdi-bucket.s3.amazonaws.com/1b2a7f62f78ce7ac1049a022a899928c.jpg)')
+  for (let i = 0; i < apiResponse.images.length; i++) {
+    $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
+  }
 }
 
 const returnToCarouselView = () => {

@@ -187,6 +187,29 @@ body {
 
 // ------------Upload Images End - End ---------------
 
+// ------------My Images Page - Start ---------------
+.my-images-header {
+  text-align: center;
+  font-size: 3em;
+}
+
+.image-readout-wrapper {
+  height: 400px;
+  margin-bottom: 50px;
+}
+
+.image-readout-image {
+  height: 300px;
+  width: 100%;
+  background: transparent;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background: transparent;
+  background-position-x: center;
+  background-position-y: center;
+}
+// ------------My Images End - End ---------------
+
 // ------------Media Queries - Start ---------------
 @media (max-width: 991px) {
   .change-pw-modal-content {

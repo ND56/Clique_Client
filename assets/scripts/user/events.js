@@ -67,7 +67,9 @@ const onSelectUploadImagesView = (event) => {
 
 const onSelectViewMyImagesView = (event) => {
   event.preventDefault()
-  ui.myImagesView()
+  api.getImages()
+    .then(ui.myImagesView)
+    .catch(console.error)
 }
 
 const onReturnToCarouselView = (event) => {

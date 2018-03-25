@@ -57,10 +57,22 @@ const changePassword = (editPwdData) => {
   })
 }
 
+const getImages = () => {
+  return $.ajax({
+    url: apiUrl + '/images',
+    method: 'GET',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
   changePw,
   logOut,
-  changePassword
+  changePassword,
+  getImages
 }
