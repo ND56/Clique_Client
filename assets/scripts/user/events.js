@@ -96,10 +96,10 @@ const onDeleteImage = (event) => {
 const onSelectCarousel = (event) => {
   event.preventDefault()
   store.currentCarouselId = $(event.target).data().id
-  api.findImageById()
-    .then(console.log)
-    .catch(console.error)
   $('#single-image-readout-modal').modal('show')
+  api.findImageById()
+    .then(ui.populateCarouselModalSuccess)
+    .catch(ui.populateCarouselModalFailure)
 }
 
 module.exports = {

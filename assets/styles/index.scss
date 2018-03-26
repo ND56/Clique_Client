@@ -36,13 +36,18 @@ body {
 
 .login,
 .sign-up {
-  background-color: transparent;
+  // background-color: transparent;
   border-radius: 5px;
   height: 300px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 80px;
   width: 300px;
+}
+
+form#login-form,
+form#sign-up-form {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .auth-input {
@@ -178,6 +183,49 @@ img.img-constrain {
   max-width: $carousel-image-width;
   width: auto;
 }
+
+.single-image {
+  height: 350px;
+  // background-color: yellow;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background: transparent;
+  background-position-x: center;
+  background-position-y: center;
+}
+
+.single-title {
+  height: 65px;
+  text-align: center;
+  position: relative;
+  top: 10px;
+  font-size: 2.5em;
+  font-family: 'Dancing Script', cursive;
+  // font-family: 'Sail', cursive;
+}
+
+.carousel-image-info-wrapper {
+  margin: 28px 30px;
+}
+
+.single-description,
+.single-owner {
+  margin-bottom: 10px;
+}
+
+.single-description {
+  font-style: italic;
+}
+
+.single-tags {
+  color: $tangerine;
+}
+
+.single-owned-prop {
+  text-decoration: underline;
+  color: black;
+}
+
 // ---------------Carousel Page - End---------------
 
 // ------------Modals - Start ---------------

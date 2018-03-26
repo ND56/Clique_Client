@@ -172,6 +172,21 @@ const deleteImageFailure = () => {
   notification.universalToast('error', 'Error!', 'Failed to delete image!')
 }
 
+const populateCarouselModalSuccess = (apiResponse) => {
+  console.log(apiResponse.image)
+  $('#single-title').text(apiResponse.image.title)
+  $('#single-image').css('background-image', 'url(' + apiResponse.image.url + ')')
+  $('#single-description').text(apiResponse.image.description)
+  $('#single-owned-value').text(apiResponse.image._owner.email)
+  if (apiResponse.image.tags.length > 0) {
+    $('#single-tag-value').text(apiResponse.image.tags)
+  }
+}
+
+const populateCarouselModalFailure = (apiResponse) => {
+
+}
+
 module.exports = {
   onSignInSuccess,
   onSignInFailure,
@@ -187,5 +202,7 @@ module.exports = {
   deleteImageSuccess,
   deleteImageFailure,
   populateCarouselSuccess,
-  populateCarouselFailure
+  populateCarouselFailure,
+  populateCarouselModalSuccess,
+  populateCarouselModalFailure
 }
