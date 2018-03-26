@@ -5,12 +5,14 @@
       <title>PCTR</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Title icon -->
-      <!-- <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"> -->
       <link rel="shortcut icon" type="image/png" href="https://imgur.com/MTomPU8.png" />
       <!-- Header fonts -->
       <link href="https://fonts.googleapis.com/css?family=Bungee+Outline|Fascinate+Inline|Limelight|Monoton|Sacramento|Satisfy" rel="stylesheet">
       <!-- Body fonts -->
       <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+      <!-- Font-Awesome -->
+      <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
       <!-- Scripts -->
       <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
@@ -136,8 +138,27 @@
       <!-- Carousel Page - End -->
 
       <!-- Upload Image Page - Start -->
+      <!-- bootstrap form -->
       <div class="upload-images-page-wrapper" id="upload-images-page">
+        <div id="image-uploader"> </div>
+        <i class="fas fa-plus add-tag-btn" id="add-tag-btn"></i>
+        <form id="image-details">
+          <div class="form-group">
+            <label for="image-title">Image title</label>
+            <input type="text" class="form-control" id="image-title" placeholder="Boston Sunset">
+          </div>
+          <div class="form-group">
+            <label for="image-description">Image description</label>
+            <input type="text" class="form-control" id="image-description" placeholder="Hancock Tower in Boston at sunset">
+          </div>
+          <div class="form-group">
+            <label for="image-tags">Image tags</label>
+            <input type="text" class="form-control" id="image-tages" placeholder="#Boston">
+            <p class="help-block">Additional tag inputs show below.</p>
+          </div>
+        </form>
       </div>
+      <!-- Bootstrap form ends -->
       <!-- Upload Image Page - End -->
 
       <!-- My Images Page - Start -->
