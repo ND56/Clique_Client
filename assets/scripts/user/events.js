@@ -93,6 +93,15 @@ const onDeleteImage = (event) => {
     .catch(ui.deleteImageFailure)
 }
 
+const onSelectCarousel = (event) => {
+  event.preventDefault()
+  store.currentCarouselId = $(event.target).data().id
+  api.findImageById()
+    .then(console.log)
+    .catch(console.error)
+  $('#single-image-readout-modal').modal('show')
+}
+
 module.exports = {
   onSignIn,
   onToggleSignUp,
@@ -104,5 +113,6 @@ module.exports = {
   onSelectViewMyImagesView,
   onEditPassword,
   onReturnToCarouselView,
-  onDeleteImage
+  onDeleteImage,
+  onSelectCarousel
 }

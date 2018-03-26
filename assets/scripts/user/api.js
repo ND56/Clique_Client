@@ -79,6 +79,17 @@ const deleteImage = () => {
   })
 }
 
+const findImageById = () => {
+  return $.ajax({
+    url: apiUrl + '/images/' + store.currentCarouselId,
+    method: 'GET',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
@@ -86,5 +97,6 @@ module.exports = {
   logOut,
   changePassword,
   getImages,
-  deleteImage
+  deleteImage,
+  findImageById
 }
