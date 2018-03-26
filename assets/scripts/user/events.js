@@ -67,12 +67,24 @@ const onSelectUploadImagesView = (event) => {
 
 const onSelectViewMyImagesView = (event) => {
   event.preventDefault()
-  ui.myImagesView()
+  api.getImages()
+    .then(ui.myImagesView)
+    .catch(console.error)
 }
 
 const onReturnToCarouselView = (event) => {
   event.preventDefault()
   ui.returnToCarouselView()
+}
+
+const onDeleteImage = (event) => {
+  event.preventDefault()
+  // we set the "delete" data property of the delete button to image ID so we
+  // could access it from the event and use to AJAX/DOM delete
+  store.currentImageID = $(event.target).data().delete
+  api.deleteImage()
+    .then(ui.deleteImageSuccess)
+    .catch(ui.deleteImageFailure)
 }
 
 module.exports = {
@@ -85,5 +97,6 @@ module.exports = {
   onSelectUploadImagesView,
   onSelectViewMyImagesView,
   onEditPassword,
-  onReturnToCarouselView
+  onReturnToCarouselView,
+  onDeleteImage
 }
