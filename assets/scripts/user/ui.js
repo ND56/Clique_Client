@@ -1,13 +1,13 @@
 const notification = require('../../../lib/notifications')
 const store = require('../store.js')
 const templateMyImages = require('../templates/my-images-readout.handlebars')
+const templateCarousel = require('../templates/carousel-readout.handlebars')
 
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
   // things like user._id, user.email, user.token, etc.
   store.user = apiResponse.user
   // end
-  notification.alert('success', 'Successfully Signed In')
   notification.universalToast('success', 'Success!', 'Successfully signed in!')
   // change placeholder in dropdown label to user email
   $('#user-email-dropdown').text(store.user.email)
@@ -116,7 +116,6 @@ const myImagesView = (apiResponse) => {
   }
   store.view = 'my images'
   // updating nav bar - END
-
   // populate images - START
   // ownership syntax (for eventual use; currently populating all)
   // const personalImagesArr = apiResponse.images.filter(function (image) {
@@ -131,6 +130,21 @@ const myImagesView = (apiResponse) => {
     $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
   }
   // populate images - END
+}
+
+const populateCarouselSuccess = (apiResponse) => {
+  // **NOTE** Need to pull user images out of the apiResponse eventually
+  console.log('This will populate the carousel')
+  // run images through handlebars
+  console.log(apiResponse.images[0])
+  const carouselReadout = templateCarousel({ images: apiResponse.images })
+  // append to DOM
+  $('#carousel-inner').append(carouselReadout)
+}
+
+const populateCarouselFailure = () => {
+  console.log('This will not populate the carousel')
+  notification.universalToast('error', 'Error!', 'Failed to populate carousel!')
 }
 
 const returnToCarouselView = () => {
@@ -155,7 +169,7 @@ const deleteImageSuccess = () => {
 }
 
 const deleteImageFailure = () => {
-  notification.universalToast('error', 'Error!', 'Failed to delete image!') // would want this to be red
+  notification.universalToast('error', 'Error!', 'Failed to delete image!')
 }
 
 module.exports = {
@@ -171,5 +185,7 @@ module.exports = {
   returnToCarouselView,
   myImagesView,
   deleteImageSuccess,
-  deleteImageFailure
+  deleteImageFailure,
+  populateCarouselSuccess,
+  populateCarouselFailure
 }
