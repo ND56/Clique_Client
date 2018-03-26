@@ -5,6 +5,7 @@ const store = {
   // store.currentImageID is set for purposes of AJAX/DOM delete (ui.onDeleteImage)
   // store.view contains current view location; it starts at landing Page
   view: 'landing page'
+  // store.currentCarouselId stores ID of selected image in carousel so you can make a get request to populate the modal that appears
 }
 
 module.exports = {
