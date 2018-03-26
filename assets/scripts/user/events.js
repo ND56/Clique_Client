@@ -26,7 +26,13 @@ const onSignIn = function (event) {
   console.log(data)
   api.signIn(data)
     .then(ui.onSignInSuccess)
+    .then()
     .catch(ui.onSignInFailure)
+    .then(() => {
+      api.getImages()
+        .then(ui.populateCarouselSuccess)
+        .catch(ui.populateCarouselFailure)
+    })
 }
 
 const onSignUp = (event) => {
