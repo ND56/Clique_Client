@@ -5,7 +5,6 @@ const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
 const apiUrl = require('../config')
 const Dropzone = require('../../../lib/dropzone')
-const getFormFields = require('../../../lib/get-form-fields')
 
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
@@ -16,7 +15,10 @@ const onSignInSuccess = function (apiResponse) {
   // change placeholder in dropdown label to user email
   $('#user-email-dropdown').text(store.user.email)
   // end
+  // making sure appropriate views/nav options are active
   $('#auth-view').hide()
+  $('#my-images-page').hide()
+  $('#upload-images-page').hide()
   $('#carousel-view').show()
   $('#static-nav').show()
   // clearing sign in form on sign in success
@@ -124,14 +126,12 @@ const uploadImagesView = () => {
     $('#upload-images-page').show()
     $('#upload-image-li a').text('Carousel')
     $('#upload-image-li').prop('id', 'carousel-li')
-    // change upload to carousel
   }
   if (store.view === 'my images') {
     $('#my-images-page').hide()
     $('#upload-images-page').show()
     $('#upload-image-li a').text('My Images')
     $('#upload-image-li').prop('id', 'my-images-li')
-    // change upload to my Images
   }
   store.view = 'upload images'
 }
@@ -153,12 +153,17 @@ const myImagesView = (apiResponse) => {
   store.view = 'my images'
   // updating nav bar - END
   // populate images - START
-  // ownership syntax (for eventual use; currently populating all)
-  // const personalImagesArr = apiResponse.images.filter(function (image) {
-  //   return image.user.email === store.user.email
-  // })
-  const myImagesReadout = templateMyImages({ images: apiResponse.images })
-  $('#my-images-page').append(myImagesReadout)
+  // filtering API response for user-owned images
+  const personalImagesArr = apiResponse.images.filter(function (image) {
+    return image._owner.email === store.user.email
+  })
+  // turn each tags array into a string for easy DOM reading
+  for (let i = 0; i < personalImagesArr.length; i++) {
+    personalImagesArr[i].tags = personalImagesArr[i].tags.join(' ')
+  }
+  // pass modified array with string for tags ro handlebars
+  const myImagesReadout = templateMyImages({ images: personalImagesArr })
+  $('#my-images-readout-wrapper').append(myImagesReadout)
   console.log(apiResponse.images)
   console.log(store.user._id)
   // using jquery to add correct image to each handlebars element
@@ -220,7 +225,36 @@ const populateCarouselModalSuccess = (apiResponse) => {
 }
 
 const populateCarouselModalFailure = (apiResponse) => {
+  notification.universalToast('error', 'Error!', 'Failed to populate modal!')
+}
 
+const toggleEditImageModalSuccess = (apiResponse) => {
+  $('#edit-image-modal').modal('show')
+  $('#title1').val(apiResponse.image.title)
+  $('#description1').text(apiResponse.image.description)
+  $('#tags1').val(apiResponse.image.tags.join(' '))
+}
+
+const toggleEditImageModalFailure = () => {
+  notification.universalToast('error', 'Error!', 'Failed to load image!')
+}
+
+const editImageSuccess = () => {
+  console.log('Edit worked!')
+  console.log(store.recentEditedData)
+  // reset modal and hide
+  $('#edit-image-form').each(function () {
+    this.reset()
+  })
+  $('#edit-image-modal').modal('hide')
+  // manipulate DOM
+  $("span[data-id='title-" + store.currentImageID + "']").text(store.recentEditedData.image.title)
+  $("span[data-id='description-" + store.currentImageID + "']").text(store.recentEditedData.image.description)
+  $("span[data-id='tags-" + store.currentImageID + "']").text(store.recentEditedData.image.tags)
+}
+
+const editImageFailure = () => {
+  notification.universalToast('error', 'Error!', 'Failed to edit image!')
 }
 
 module.exports = {
@@ -240,5 +274,9 @@ module.exports = {
   populateCarouselSuccess,
   populateCarouselFailure,
   populateCarouselModalSuccess,
-  populateCarouselModalFailure
+  populateCarouselModalFailure,
+  toggleEditImageModalSuccess,
+  toggleEditImageModalFailure,
+  editImageSuccess,
+  editImageFailure
 }

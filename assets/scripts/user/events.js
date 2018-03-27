@@ -53,6 +53,8 @@ const onLogOut = (event) => {
     .then(ui.onLogOutSuccess)
     .catch(ui.onLogOutFailure)
   store.view = 'landing page'
+  // emptying my images view so it doesn't duplicate on return to my images
+  $('#my-images-readout-wrapper').empty()
 }
 
 const onToggleEditPwdModal = (event) => {
@@ -71,6 +73,8 @@ const onEditPassword = (event) => {
 const onSelectUploadImagesView = (event) => {
   event.preventDefault()
   ui.uploadImagesView()
+  // emptying my images view so it doesn't duplicate on return to my images
+  $('#my-images-readout-wrapper').empty()
 }
 
 const onSelectViewMyImagesView = (event) => {
@@ -83,6 +87,8 @@ const onSelectViewMyImagesView = (event) => {
 const onReturnToCarouselView = (event) => {
   event.preventDefault()
   ui.returnToCarouselView()
+  // emptying my images view so it doesn't duplicate on return to my images
+  $('#my-images-readout-wrapper').empty()
 }
 
 const onDeleteImage = (event) => {
@@ -97,11 +103,32 @@ const onDeleteImage = (event) => {
 
 const onSelectCarousel = (event) => {
   event.preventDefault()
-  store.currentCarouselId = $(event.target).data().id
+  store.currentImageID = $(event.target).data().id
   $('#single-image-readout-modal').modal('show')
   api.findImageById()
     .then(ui.populateCarouselModalSuccess)
     .catch(ui.populateCarouselModalFailure)
+}
+
+const onToggleEditImageModal = (event) => {
+  event.preventDefault()
+  console.log('Button works!')
+  store.currentImageID = $(event.target).data().edit
+  api.findImageById()
+    .then(ui.toggleEditImageModalSuccess)
+    .catch(ui.toggleEditImageModalFailure)
+}
+
+const onEditImage = (event) => {
+  event.preventDefault()
+  // for some reason, I had to pass event.target.form; no idea why it's
+  // different for this form than for other forms!
+  const editImageData = getFormFields(event.target)
+  store.recentEditedData = editImageData
+  api.editImage(editImageData)
+    .then(ui.editImageSuccess)
+    .catch(ui.editImageFailure)
+  // storing edited image data for immediate DOM manipulation
 }
 
 module.exports = {
@@ -116,5 +143,7 @@ module.exports = {
   onEditPassword,
   onReturnToCarouselView,
   onDeleteImage,
-  onSelectCarousel
+  onSelectCarousel,
+  onToggleEditImageModal,
+  onEditImage
 }
