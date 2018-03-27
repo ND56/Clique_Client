@@ -123,10 +123,12 @@ const onEditImage = (event) => {
   event.preventDefault()
   // for some reason, I had to pass event.target.form; no idea why it's
   // different for this form than for other forms!
-  const editImageData = getFormFields(event.target.form)
+  const editImageData = getFormFields(event.target)
+  store.recentEditedData = editImageData
   api.editImage(editImageData)
-    .then(console.log)
-    .catch(console.error)
+    .then(ui.editImageSuccess)
+    .catch(ui.editImageFailure)
+  // storing edited image data for immediate DOM manipulation
 }
 
 module.exports = {

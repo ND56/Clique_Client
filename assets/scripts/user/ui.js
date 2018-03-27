@@ -157,7 +157,11 @@ const myImagesView = (apiResponse) => {
   const personalImagesArr = apiResponse.images.filter(function (image) {
     return image._owner.email === store.user.email
   })
-  // passing user-owned images to handlebars
+  // turn each tags array into a string for easy DOM reading
+  for (let i = 0; i < personalImagesArr.length; i++) {
+    personalImagesArr[i].tags = personalImagesArr[i].tags.join(' ')
+  }
+  // pass modified array with string for tags ro handlebars
   const myImagesReadout = templateMyImages({ images: personalImagesArr })
   $('#my-images-readout-wrapper').append(myImagesReadout)
   console.log(apiResponse.images)
@@ -228,11 +232,29 @@ const toggleEditImageModalSuccess = (apiResponse) => {
   $('#edit-image-modal').modal('show')
   $('#title1').val(apiResponse.image.title)
   $('#description1').text(apiResponse.image.description)
-  $('#tags1').val(apiResponse.image.tags)
+  $('#tags1').val(apiResponse.image.tags.join(' '))
 }
 
 const toggleEditImageModalFailure = () => {
   notification.universalToast('error', 'Error!', 'Failed to load image!')
+}
+
+const editImageSuccess = () => {
+  console.log('Edit worked!')
+  console.log(store.recentEditedData)
+  // reset modal and hide
+  $('#edit-image-form').each(function () {
+    this.reset()
+  })
+  $('#edit-image-modal').modal('hide')
+  // manipulate DOM
+  $("span[data-id='title-" + store.currentImageID + "']").text(store.recentEditedData.image.title)
+  $("span[data-id='description-" + store.currentImageID + "']").text(store.recentEditedData.image.description)
+  $("span[data-id='tags-" + store.currentImageID + "']").text(store.recentEditedData.image.tags)
+}
+
+const editImageFailure = () => {
+  notification.universalToast('error', 'Error!', 'Failed to edit image!')
 }
 
 module.exports = {
@@ -254,5 +276,7 @@ module.exports = {
   populateCarouselModalSuccess,
   populateCarouselModalFailure,
   toggleEditImageModalSuccess,
-  toggleEditImageModalFailure
+  toggleEditImageModalFailure,
+  editImageSuccess,
+  editImageFailure
 }
