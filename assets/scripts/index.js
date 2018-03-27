@@ -7,7 +7,7 @@ const getFormFields = require('../../lib/get-form-fields')
 $(() => {
   // $('#login').hide()
   // $('#auth-view').hide()
-  // $('#sign-up').hide()
+  $('#sign-up').hide()
   $('#carousel-view').hide()
   $('#static-nav').hide()
   $('#upload-images-page').hide()
