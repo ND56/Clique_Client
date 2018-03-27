@@ -16,7 +16,10 @@ const onSignInSuccess = function (apiResponse) {
   // change placeholder in dropdown label to user email
   $('#user-email-dropdown').text(store.user.email)
   // end
+  // making sure appropriate views/nav options are active
   $('#auth-view').hide()
+  $('#my-images-page').hide()
+  $('#upload-images-page').hide()
   $('#carousel-view').show()
   $('#static-nav').show()
   // clearing sign in form on sign in success
@@ -124,14 +127,12 @@ const uploadImagesView = () => {
     $('#upload-images-page').show()
     $('#upload-image-li a').text('Carousel')
     $('#upload-image-li').prop('id', 'carousel-li')
-    // change upload to carousel
   }
   if (store.view === 'my images') {
     $('#my-images-page').hide()
     $('#upload-images-page').show()
     $('#upload-image-li a').text('My Images')
     $('#upload-image-li').prop('id', 'my-images-li')
-    // change upload to my Images
   }
   store.view = 'upload images'
 }
@@ -153,12 +154,13 @@ const myImagesView = (apiResponse) => {
   store.view = 'my images'
   // updating nav bar - END
   // populate images - START
-  // ownership syntax (for eventual use; currently populating all)
-  // const personalImagesArr = apiResponse.images.filter(function (image) {
-  //   return image.user.email === store.user.email
-  // })
-  const myImagesReadout = templateMyImages({ images: apiResponse.images })
-  $('#my-images-page').append(myImagesReadout)
+  // filtering API response for user-owned images
+  const personalImagesArr = apiResponse.images.filter(function (image) {
+    return image._owner.email === store.user.email
+  })
+  // passing user-owned images to handlebars
+  const myImagesReadout = templateMyImages({ images: personalImagesArr })
+  $('#my-images-readout-wrapper').append(myImagesReadout)
   console.log(apiResponse.images)
   console.log(store.user._id)
   // using jquery to add correct image to each handlebars element
@@ -220,7 +222,7 @@ const populateCarouselModalSuccess = (apiResponse) => {
 }
 
 const populateCarouselModalFailure = (apiResponse) => {
-
+  notification.universalToast('error', 'Error!', 'Failed to populate modal!')
 }
 
 module.exports = {

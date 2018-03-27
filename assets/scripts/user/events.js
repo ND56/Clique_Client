@@ -53,6 +53,8 @@ const onLogOut = (event) => {
     .then(ui.onLogOutSuccess)
     .catch(ui.onLogOutFailure)
   store.view = 'landing page'
+  // emptying my images view so it doesn't duplicate on return to my images
+  $('#my-images-readout-wrapper').empty()
 }
 
 const onToggleEditPwdModal = (event) => {
@@ -71,6 +73,8 @@ const onEditPassword = (event) => {
 const onSelectUploadImagesView = (event) => {
   event.preventDefault()
   ui.uploadImagesView()
+  // emptying my images view so it doesn't duplicate on return to my images
+  $('#my-images-readout-wrapper').empty()
 }
 
 const onSelectViewMyImagesView = (event) => {
@@ -83,6 +87,8 @@ const onSelectViewMyImagesView = (event) => {
 const onReturnToCarouselView = (event) => {
   event.preventDefault()
   ui.returnToCarouselView()
+  // emptying my images view so it doesn't duplicate on return to my images
+  $('#my-images-readout-wrapper').empty()
 }
 
 const onDeleteImage = (event) => {
