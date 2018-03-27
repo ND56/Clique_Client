@@ -103,11 +103,30 @@ const onDeleteImage = (event) => {
 
 const onSelectCarousel = (event) => {
   event.preventDefault()
-  store.currentCarouselId = $(event.target).data().id
+  store.currentImageID = $(event.target).data().id
   $('#single-image-readout-modal').modal('show')
   api.findImageById()
     .then(ui.populateCarouselModalSuccess)
     .catch(ui.populateCarouselModalFailure)
+}
+
+const onToggleEditImageModal = (event) => {
+  event.preventDefault()
+  console.log('Button works!')
+  store.currentImageID = $(event.target).data().edit
+  api.findImageById()
+    .then(ui.toggleEditImageModalSuccess)
+    .catch(ui.toggleEditImageModalFailure)
+}
+
+const onEditImage = (event) => {
+  event.preventDefault()
+  // for some reason, I had to pass event.target.form; no idea why it's
+  // different for this form than for other forms!
+  const editImageData = getFormFields(event.target.form)
+  api.editImage(editImageData)
+    .then(console.log)
+    .catch(console.error)
 }
 
 module.exports = {
@@ -122,5 +141,7 @@ module.exports = {
   onEditPassword,
   onReturnToCarouselView,
   onDeleteImage,
-  onSelectCarousel
+  onSelectCarousel,
+  onToggleEditImageModal,
+  onEditImage
 }

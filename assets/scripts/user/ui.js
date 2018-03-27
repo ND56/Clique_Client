@@ -5,7 +5,6 @@ const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
 const apiUrl = require('../config')
 const Dropzone = require('../../../lib/dropzone')
-const getFormFields = require('../../../lib/get-form-fields')
 
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
@@ -225,6 +224,17 @@ const populateCarouselModalFailure = (apiResponse) => {
   notification.universalToast('error', 'Error!', 'Failed to populate modal!')
 }
 
+const toggleEditImageModalSuccess = (apiResponse) => {
+  $('#edit-image-modal').modal('show')
+  $('#title1').val(apiResponse.image.title)
+  $('#description1').text(apiResponse.image.description)
+  $('#tags1').val(apiResponse.image.tags)
+}
+
+const toggleEditImageModalFailure = () => {
+  notification.universalToast('error', 'Error!', 'Failed to load image!')
+}
+
 module.exports = {
   onSignInSuccess,
   onSignInFailure,
@@ -242,5 +252,7 @@ module.exports = {
   populateCarouselSuccess,
   populateCarouselFailure,
   populateCarouselModalSuccess,
-  populateCarouselModalFailure
+  populateCarouselModalFailure,
+  toggleEditImageModalSuccess,
+  toggleEditImageModalFailure
 }

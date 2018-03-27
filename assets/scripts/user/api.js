@@ -81,12 +81,24 @@ const deleteImage = () => {
 
 const findImageById = () => {
   return $.ajax({
-    url: apiUrl + '/images/' + store.currentCarouselId,
+    url: apiUrl + '/images/' + store.currentImageID,
     method: 'GET',
     headers: {
       contentType: 'application/json',
       Authorization: 'Token token=' + store.user.token
     }
+  })
+}
+
+const editImage = (editImgData) => {
+  return $.ajax({
+    url: apiUrl + '/images/' + store.currentImageID,
+    method: 'PATCH',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: editImgData
   })
 }
 
@@ -98,5 +110,6 @@ module.exports = {
   changePassword,
   getImages,
   deleteImage,
-  findImageById
+  findImageById,
+  editImage
 }

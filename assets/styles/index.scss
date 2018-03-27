@@ -251,8 +251,34 @@ img.img-constrain {
 }
 // single-image-readout-modal - END
 
-// Change password modal - Start
-.change-pw-modal-content {
+// Change password modal & Edit image modal - Start
+
+#tags1 {
+  color: $tangerine;
+}
+
+.modal-button:hover {
+  background: $tangerine;
+  color: $white;
+}
+
+.edit-image-modal-content {
+  padding: 0 !important;
+}
+
+.edit-image-modal-banner {
+  height: 35px;
+  background-color: $tangerine;
+  margin-bottom: 16px;
+}
+
+#edit-image-form {
+  margin-right: 14px;
+  margin-left: 9px;
+}
+
+.change-pw-modal-content,
+.edit-image-modal-content {
   width: 500px;
   padding: 16px;
   padding-bottom: 11px;
@@ -318,13 +344,15 @@ img.img-constrain {
 
 // ------------Media Queries - Start ---------------
 @media (max-width: 991px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 10%;
   }
 }
 
 @media (max-width: 767px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 17%;
   }
 
@@ -346,56 +374,65 @@ img.img-constrain {
 }
 
 @media (max-width: 716px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 16%;
   }
 }
 
 @media (max-width: 681px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 13%;
   }
 }
 
 @media (max-width: 623px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 10%;
   }
 }
 
 @media (max-width: 582px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 6%;
   }
 }
 
 @media (max-width: 555px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 13%;
     width: 400px;
   }
 }
 
 @media (max-width: 489px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 8%;
   }
 }
 
 @media (max-width: 450px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: 0;
   }
 }
 
 @media (max-width: 413px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: -6px;
   }
 }
 
 @media (max-width: 405px) {
-  .change-pw-modal-content {
+  .change-pw-modal-content,
+  .edit-image-modal-content {
     left: -10px;
   }
 }

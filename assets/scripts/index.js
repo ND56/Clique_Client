@@ -23,6 +23,8 @@ $(() => {
 
   $('body').on('click', '.carousel-img-handler-class', events.onSelectCarousel)
   $('body').on('click', '.delete-image-button', events.onDeleteImage)
+  $('body').on('click', '.edit-image-button', events.onToggleEditImageModal)
+  $('body').on('click', '#edit-image-form', events.onEditImage)
   $('body').on('click', '#upload-image-li', events.onSelectUploadImagesView)
   $('body').on('click', '#carousel-li', events.onReturnToCarouselView)
   $('body').on('click', '#my-images-li', events.onSelectViewMyImagesView)
