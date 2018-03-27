@@ -1,11 +1,13 @@
 'use strict'
 
 const events = require('./user/events')
+const imagesEvents = require('./images/events')
+const getFormFields = require('../../lib/get-form-fields')
 
 $(() => {
   // $('#login').hide()
   // $('#auth-view').hide()
-  $('#sign-up').hide()
+  // $('#sign-up').hide()
   $('#carousel-view').hide()
   $('#static-nav').hide()
   $('#upload-images-page').hide()
@@ -24,4 +26,5 @@ $(() => {
   $('body').on('click', '#upload-image-li', events.onSelectUploadImagesView)
   $('body').on('click', '#carousel-li', events.onReturnToCarouselView)
   $('body').on('click', '#my-images-li', events.onSelectViewMyImagesView)
+  imagesEvents.imagesHandlers()
 })
