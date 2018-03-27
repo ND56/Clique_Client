@@ -33,6 +33,7 @@ const onSignIn = function (event) {
         .then(ui.populateCarouselSuccess)
         .catch(ui.populateCarouselFailure)
     })
+  store.view = 'carousel'
 }
 
 const onSignUp = (event) => {
@@ -51,6 +52,7 @@ const onLogOut = (event) => {
   api.logOut()
     .then(ui.onLogOutSuccess)
     .catch(ui.onLogOutFailure)
+  store.view = 'landing page'
 }
 
 const onToggleEditPwdModal = (event) => {
