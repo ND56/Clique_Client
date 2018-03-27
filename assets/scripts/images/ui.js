@@ -2,7 +2,7 @@
 
 let tagCounter = 0
 const addTag = function (event) {
-  $('#image-details').append('<input type="text" class="form-control" name="image[tags][]" placeholder="#tag">')
+  $('#image-details').append('<input type="text" class="image-details-input" name="image[tags][]" placeholder="#tag">')
   tagCounter++
 }
 

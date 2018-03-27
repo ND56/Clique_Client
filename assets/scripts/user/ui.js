@@ -25,23 +25,44 @@ const onSignInSuccess = function (apiResponse) {
   $('#login-form').each(function () {
     this.reset()
   })
-  const previews = "<div class='row'><div class='col-md-2 dz-filename'><span data-dz-name></span></div><div class='col-md-2 dz-size' data-dz-size></div><div class='col-md-2'><div class='progress'><div class='progress-bar progress-bar-striped active dz-upload' data-dz-uploadprogress role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0%'></div></div></div><div class='col-md-3 status'></div><div class='col-md-3 file-type'></div></div>"
+  const previews = `
+    <div class="row image-table-row">
+        <div class="col-md-2 dz-preview dz-file-preview image-table-col">
+            <img data-dz-thumbnail class="thumbnail" />
+        </div>
+        <div class="col-md-3 image-table-col">
+          <div class="dz-filename"><span data-dz-name></span></div>
+        </div>
+        <div class="col-md-2 image-table-col">
+          <div class="dz-size" data-dz-size></div>
+        </div>
+        <div class="col-md-2 file-type image-table-col"> </div>
+        <div class='col-md-3 image-table-col'>
+          <div class='progress'>
+            <div class='progress-bar progress-bar-striped active dz-upload' data-dz-uploadprogress role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0%'></div>
+          </div>
+        </div>
+    </div>
+  `
+  // const previews = "<div class='row'><div class='col-md-2 dz-filename'><span data-dz-name></span></div><div class='col-md-2 dz-size' data-dz-size></div><div class='col-md-2'><div class='progress'><div class='progress-bar progress-bar-striped active dz-upload' data-dz-uploadprogress role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0%'></div></div></div><div class='col-md-3 status'></div><div class='col-md-3 file-type'></div></div>"
   const dropzone = new Dropzone('#image-uploader', {
-    url: apiUrl + '/images',
-    paramName: 'image[file]',
-    previewTemplate: previews,
-    headers: {
-      contentType: 'application/json',
-      Authorization: 'Token token=' + store.user.token
-    }
+      url: apiUrl + '/images',
+      paramName: 'image[file]',
+      previewsContainer: '.upload-info',
+      previewTemplate: previews,
+      headers: {
+        contentType: 'application/json',
+        Authorization: 'Token token=' + store.user.token
+      },
+      maxFiles: 1,
+      maxFilesize: 30,
   })
   dropzone.on('sending', function (file, xhr, formData) {
-    const title = $('#image-title').val()
-    const description = $('#image-description').val()
-    console.log(title)
-    console.log(description)
-    formData.append('image[title]', title)
-    formData.append('image[description]', description)
+    const imageForm = document.forms.namedItem('image-details')
+    const imageData = getFormFields(imageForm)
+    formData.append("image[description]", imageData.image.description)
+    formData.append("image[title]", imageData.image.title)
+    formData.append("image[tags]", imageData.image.tags)
   })
   dropzone.on('success', function (file, response) {
     console.log('ransuccess')
@@ -55,6 +76,7 @@ const onSignInSuccess = function (apiResponse) {
     $(previewElement).find('div.status').html('<span> Error </span>')
   })
   dropzone.on('complete', function (file) {
+    console.log('complete sending')
     $(file.previewElement).find('div.file-type').html(file.type)
   })
   // end
@@ -153,6 +175,7 @@ const myImagesView = (apiResponse) => {
   store.view = 'my images'
   // updating nav bar - END
   // populate images - START
+<<<<<<< HEAD
   // filtering API response for user-owned images
   const personalImagesArr = apiResponse.images.filter(function (image) {
     return image._owner.email === store.user.email
@@ -166,6 +189,14 @@ const myImagesView = (apiResponse) => {
   $('#my-images-readout-wrapper').append(myImagesReadout)
   console.log(apiResponse.images)
   console.log(store.user._id)
+=======
+  // ownership syntax (for eventual use; currently populating all)
+  // const personalImagesArr = apiResponse.images.filter(function (image) {
+  //   return image.user.email === store.user.email
+  // })
+  const myImagesReadout = templateMyImages({ images: apiResponse.images })
+  $('#my-images-page').append(myImagesReadout)
+>>>>>>> Update image upload form
   // using jquery to add correct image to each handlebars element
   for (let i = 0; i < apiResponse.images.length; i++) {
     $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
