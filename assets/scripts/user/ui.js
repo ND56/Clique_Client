@@ -145,6 +145,7 @@ const myImagesView = (apiResponse) => {
     $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
   }
   // populate images - END
+  console.log(personalImagesArr)
 }
 
 const populateCarouselSuccess = (apiResponse) => {
@@ -195,7 +196,7 @@ const populateCarouselModalSuccess = (apiResponse) => {
   console.log(apiResponse.image)
   $('#single-title').text(apiResponse.image.title)
   $('#single-image').css('background-image', 'url(' + apiResponse.image.url + ')')
-  $('#single-description').text(apiResponse.image.description)
+  $('#single-description-span').text(apiResponse.image.description)
   $('#single-owned-value').text(apiResponse.image._owner.email)
   if (apiResponse.image.tags.length > 0) {
     $('#single-tag-value').text(apiResponse.image.tags)
