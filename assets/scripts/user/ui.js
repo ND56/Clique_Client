@@ -16,6 +16,7 @@ const onSignInSuccess = function (apiResponse) {
   $('#user-email-dropdown').text(store.user.email)
   // end
   // making sure appropriate views/nav options are active
+  $('#footer').show()
   $('#auth-view').hide()
   $('#my-images-page').hide()
   $('#upload-images-page').hide()
@@ -71,6 +72,7 @@ const onLogOutSuccess = () => {
   }
   notification.alert('success', 'Successfully Logged Out')
   $('#static-nav').hide()
+  $('#footer').hide()
   $('#auth-view').show()
   store.view = 'landing page'
 }
