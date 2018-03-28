@@ -102,6 +102,25 @@ const editImage = (editImgData) => {
   })
 }
 
+const updateUser = (latitude, longitude, apiResponse) => {
+  console.log('line 106 in API', latitude)
+  console.log('line 107 in API', apiResponse)
+  return $.ajax({
+    url: apiUrl + '/user-location/' + apiResponse.user._id,
+    method: 'PATCH',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + apiResponse.user.token
+    },
+    data: {
+      'user': {
+        'latitude': latitude,
+        'longitude': longitude
+      }
+    }
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
@@ -111,5 +130,6 @@ module.exports = {
   getImages,
   deleteImage,
   findImageById,
-  editImage
+  editImage,
+  updateUser
 }

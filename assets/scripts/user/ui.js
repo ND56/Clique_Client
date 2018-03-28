@@ -257,6 +257,10 @@ const editImageFailure = () => {
   notification.universalToast('error', 'Error!', 'Failed to edit image!')
 }
 
+const noGeoTracking = () => {
+  notification.universalToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.')
+}
+
 module.exports = {
   onSignInSuccess,
   onSignInFailure,
@@ -278,5 +282,6 @@ module.exports = {
   toggleEditImageModalSuccess,
   toggleEditImageModalFailure,
   editImageSuccess,
-  editImageFailure
+  editImageFailure,
+  noGeoTracking
 }

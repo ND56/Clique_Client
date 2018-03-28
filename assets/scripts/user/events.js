@@ -2,6 +2,7 @@ const getFormFields = require('../../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
 const store = require('../store.js')
+const userLocator = require('../geo-locator-api')
 
 // const authHandlers = function () {
 //   $('#login').on('submit', onSignIn)
@@ -25,8 +26,22 @@ const onSignIn = function (event) {
   const data = getFormFields(event.target)
   console.log(data)
   api.signIn(data)
-    .then(ui.onSignInSuccess)
-    .then()
+    // passing geo-locator the apiResponse so it can use in its update user requests
+    .then(signInApiResponse => userLocator.getUserLocation(signInApiResponse))
+    // The geolocator updates user with lat/long and returns the sign-in apiResponse
+    // if lat is truthy, continue the chain
+    .then(function (geoResponse) {
+      console.log('events line 34 geoResponse', geoResponse)
+      return geoResponse
+    })
+    .then(function (updateApiResponse) {
+      if (updateApiResponse.user.latitude) {
+        ui.onSignInSuccess(updateApiResponse)
+      } else {
+        console.log('No geo tracking!')
+        ui.noGeoTracking()
+      }
+    })
     .catch(ui.onSignInFailure)
     .then(() => {
       api.getImages()
