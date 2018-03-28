@@ -4,7 +4,6 @@ const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarouselFirstImage = require('../templates/carousel-readout-first-image.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
 const apiUrl = require('../config')
-const Dropzone = require('../../../lib/dropzone')
 
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
@@ -26,6 +25,7 @@ const onSignInSuccess = function (apiResponse) {
   $('#login-form').each(function () {
     this.reset()
   })
+
   // storing view location to inform dom manipulation (e.g., nav button options)
   store.view = 'carousel'
   // end

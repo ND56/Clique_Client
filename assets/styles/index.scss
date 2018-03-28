@@ -329,6 +329,77 @@ img.img-constrain {
 
 // ------------Upload Images Page - Start ---------------
 
+.upload-info .headers {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.image-table-row {
+  height: 60px;
+  margin-top: 10px;
+}
+
+.upload-info {
+  overflow: scroll;
+  height: 300px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.uploader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed $tangerine;
+  height: 300px;
+  width: 300px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#image-upload-form {
+  text-align: center;
+}
+
+#image-details {
+  margin-top: 20px;
+  display: inline-block;
+}
+.image-details-group {
+  width: 300px;
+  border-bottom: 1px solid $tangerine;
+}
+
+.image-details-input {
+  border: none;
+  outline: none;
+}
+
+.image-table-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+}
+
+.progress {
+  width: 50%;
+  margin-bottom: 0px;
+}
+
+.thumbnail {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0px;
+}
+
+.upload-info .row {
+  // height: 60px;
+  border: 1px solid #d3d3d3;
+}
 // ------------Upload Images End - End ---------------
 
 // ------------My Images Page - Start ---------------
