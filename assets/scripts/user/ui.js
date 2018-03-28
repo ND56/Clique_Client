@@ -1,7 +1,7 @@
 const notification = require('../../../lib/notifications')
 const store = require('../store.js')
 const templateMyImages = require('../templates/my-images-readout.handlebars')
-
+const templateCarouselFirstImage = require('../templates/carousel-readout-first-image.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
 const apiUrl = require('../config')
 const Dropzone = require('../../../lib/dropzone')
@@ -16,6 +16,7 @@ const onSignInSuccess = function (apiResponse) {
   $('#user-email-dropdown').text(store.user.email)
   // end
   // making sure appropriate views/nav options are active
+  $('#footer').show()
   $('#auth-view').hide()
   $('#my-images-page').hide()
   $('#upload-images-page').hide()
@@ -25,61 +26,6 @@ const onSignInSuccess = function (apiResponse) {
   $('#login-form').each(function () {
     this.reset()
   })
-  const previews = `
-    <div class="row image-table-row">
-        <div class="col-md-2 dz-preview dz-file-preview image-table-col">
-            <img data-dz-thumbnail class="thumbnail" />
-        </div>
-        <div class="col-md-3 image-table-col">
-          <div class="dz-filename"><span data-dz-name></span></div>
-        </div>
-        <div class="col-md-2 image-table-col">
-          <div class="dz-size" data-dz-size></div>
-        </div>
-        <div class="col-md-2 file-type image-table-col"> </div>
-        <div class='col-md-3 image-table-col'>
-          <div class='progress'>
-            <div class='progress-bar progress-bar-striped active dz-upload' data-dz-uploadprogress role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0%'></div>
-          </div>
-        </div>
-    </div>
-  `
-  // const previews = "<div class='row'><div class='col-md-2 dz-filename'><span data-dz-name></span></div><div class='col-md-2 dz-size' data-dz-size></div><div class='col-md-2'><div class='progress'><div class='progress-bar progress-bar-striped active dz-upload' data-dz-uploadprogress role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0%'></div></div></div><div class='col-md-3 status'></div><div class='col-md-3 file-type'></div></div>"
-  const dropzone = new Dropzone('#image-uploader', {
-      url: apiUrl + '/images',
-      paramName: 'image[file]',
-      previewsContainer: '.upload-info',
-      previewTemplate: previews,
-      headers: {
-        contentType: 'application/json',
-        Authorization: 'Token token=' + store.user.token
-      },
-      maxFiles: 1,
-      maxFilesize: 30,
-  })
-  dropzone.on('sending', function (file, xhr, formData) {
-    const imageForm = document.forms.namedItem('image-details')
-    const imageData = getFormFields(imageForm)
-    formData.append("image[description]", imageData.image.description)
-    formData.append("image[title]", imageData.image.title)
-    formData.append("image[tags]", imageData.image.tags)
-  })
-  dropzone.on('success', function (file, response) {
-    console.log('ransuccess')
-    const previewElement = file.previewElement
-    $(previewElement).find('div.progress').children().removeClass('progress-bar-striped').addClass('progress-bar-success').html('<span> 100% Complete </span>')
-    $(previewElement).find('div.status').html('<span> Success </span>')
-  })
-  dropzone.on('error', function (file, errorMessage) {
-    const previewElement = file.previewElement
-    $(previewElement).find('div.progress').children().removeClass('progress-bar-striped').addClass('progress-bar-danger').css('width', '100%').html('<span> 0%</span>')
-    $(previewElement).find('div.status').html('<span> Error </span>')
-  })
-  dropzone.on('complete', function (file) {
-    console.log('complete sending')
-    $(file.previewElement).find('div.file-type').html(file.type)
-  })
-  // end
   // storing view location to inform dom manipulation (e.g., nav button options)
   store.view = 'carousel'
   // end
@@ -126,6 +72,7 @@ const onLogOutSuccess = () => {
   }
   notification.alert('success', 'Successfully Logged Out')
   $('#static-nav').hide()
+  $('#footer').hide()
   $('#auth-view').show()
   store.view = 'landing page'
 }
@@ -180,7 +127,6 @@ const myImagesView = (apiResponse) => {
     $('#my-images-li').prop('id', 'upload-image-li')
   }
   store.view = 'my images'
-  // updating nav bar - END
   // populate images - START
   // filtering API response for user-owned images
   const personalImagesArr = apiResponse.images.filter(function (image) {
@@ -201,12 +147,16 @@ const myImagesView = (apiResponse) => {
 }
 
 const populateCarouselSuccess = (apiResponse) => {
-  // **NOTE** Need to pull user images out of the apiResponse eventually
-  console.log('This will populate the carousel')
-  // run images through handlebars
-  console.log(apiResponse.images[0])
-  const carouselReadout = templateCarousel({ images: apiResponse.images })
-  // append to DOM
+  // remove user-owned images from the apiRespose
+  const publicImagesArr = apiResponse.images.filter(function (image) {
+    return image._owner.email !== store.user.email
+  })
+  // run first public image through this handlebars to set active status in carousel
+  const carouselReadoutFirstImage = templateCarouselFirstImage({ image: publicImagesArr[0] })
+  // run subsequent public images through this handlebars so active status not set
+  const carouselReadout = templateCarousel({ images: publicImagesArr })
+  // append images to DOM
+  $('#carousel-inner').append(carouselReadoutFirstImage)
   $('#carousel-inner').append(carouselReadout)
 }
 
