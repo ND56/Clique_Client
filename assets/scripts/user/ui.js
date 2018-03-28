@@ -145,10 +145,14 @@ const myImagesView = (apiResponse) => {
 }
 
 const populateCarouselSuccess = (apiResponse) => {
-  // run first image through this handlebars to set active status in carousel
-  const carouselReadoutFirstImage = templateCarouselFirstImage({ image: apiResponse.images[0] })
-  // run subsequent images through this handlebars so active status not set
-  const carouselReadout = templateCarousel({ images: apiResponse.images })
+  // remove user-owned images from the apiRespose
+  const publicImagesArr = apiResponse.images.filter(function (image) {
+    return image._owner.email !== store.user.email
+  })
+  // run first public image through this handlebars to set active status in carousel
+  const carouselReadoutFirstImage = templateCarouselFirstImage({ image: publicImagesArr[0] })
+  // run subsequent public images through this handlebars so active status not set
+  const carouselReadout = templateCarousel({ images: publicImagesArr })
   // append images to DOM
   $('#carousel-inner').append(carouselReadoutFirstImage)
   $('#carousel-inner').append(carouselReadout)
