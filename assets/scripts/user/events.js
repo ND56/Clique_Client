@@ -27,6 +27,10 @@ const onSignIn = function (event) {
   console.log(data)
   api.signIn(data)
     // passing geo-locator the apiResponse so it can use in its update user requests
+    .then(function (signInApiResponse) {
+      store.user = signInApiResponse.user
+      return signInApiResponse
+    })
     .then(signInApiResponse => userLocator.getUserLocation(signInApiResponse))
     // The geolocator updates user with lat/long and returns the sign-in apiResponse
     // if lat is truthy, continue the chain
@@ -37,18 +41,18 @@ const onSignIn = function (event) {
     .then(function (updateApiResponse) {
       if (updateApiResponse.user.latitude) {
         ui.onSignInSuccess(updateApiResponse)
+        api.getImages()
+          .then(ui.populateCarouselSuccess)
+          .catch(ui.populateCarouselFailure)
+        store.view = 'carousel'
       } else {
         console.log('No geo tracking!')
         ui.noGeoTracking()
       }
     })
-    .catch(ui.onSignInFailure)
-    .then(() => {
-      api.getImages()
-        .then(ui.populateCarouselSuccess)
-        .catch(ui.populateCarouselFailure)
+    .catch(function (error) {
+      ui.onSignInFailure(error)
     })
-  store.view = 'carousel'
 }
 
 const onSignUp = (event) => {

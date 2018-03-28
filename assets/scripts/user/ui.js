@@ -9,7 +9,7 @@ const Dropzone = require('../../../lib/dropzone')
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
   // things like user._id, user.email, user.token, etc.
-  store.user = apiResponse.user
+  // store.user = apiResponse.user
   // end
   notification.universalToast('success', 'Success!', 'Successfully signed in!')
   // change placeholder in dropdown label to user email
@@ -63,8 +63,14 @@ const onSignInSuccess = function (apiResponse) {
   // end
 }
 
-const onSignInFailure = function () {
-  notification.alert('danger', 'Login Unsuccessful')
+const onSignInFailure = function (error) {
+  if (error.code === 1) {
+    notification.staticToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.')
+  } else {
+    notification.alert('danger', 'Login Unsuccessful. Please make sure you used the correct password!')
+  }
+  console.log('sign-in failure', store.user)
+  console.log(error)
 }
 
 const onSignUpSuccess = function () {
@@ -102,8 +108,9 @@ const onLogOutSuccess = () => {
   store.view = 'landing page'
 }
 
-const onLogOutFailure = () => {
+const onLogOutFailure = (apiResponse) => {
   notification.alert('danger', 'Log-Out Unsuccessful')
+  console.log(apiResponse)
 }
 
 const onChangePwdSuccess = () => {

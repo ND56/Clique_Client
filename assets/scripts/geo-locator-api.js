@@ -29,20 +29,42 @@ const api = require('./user/api.js')
 // }
 // }
 
+// const getUserLocation = function (signInApiResponse) {
+//   return new Promise((resolve, reject) => {
+//     navigator.geolocation.watchPosition(function (position) {
+//       console.log(position.coords.latitude)
+//       if (position.coords.latitude) {
+//         // ui update position.coords.latitude
+//         // ui update position.coords.longitude
+//         api.updateUser(position.coords.latitude, position.coords.longitude, signInApiResponse)
+//           .then(function (updateResponseObject) {
+//             console.log(updateResponseObject)
+//             return updateResponseObject
+//           })
+//           .then(resolve)
+//       } else {
+//         reject(Error)
+//       }
+//     })
+//   })
+// }
+
 const getUserLocation = function (signInApiResponse) {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.watchPosition(function (position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
       console.log(position.coords.latitude)
-      if (position.coords.latitude) {
-        // ui update position.coords.latitude
-        // ui update position.coords.longitude
-        api.updateUser(position.coords.latitude, position.coords.longitude, signInApiResponse)
-          .then(function (updateResponseObject) {
-            console.log(updateResponseObject)
-            return updateResponseObject
-          })
-          .then(resolve)
-      }
+      // ui update position.coords.latitude
+      // ui update position.coords.longitude
+      api.updateUser(position.coords.latitude, position.coords.longitude, signInApiResponse)
+        .then(function (updateResponseObject) {
+          console.log(updateResponseObject)
+          return updateResponseObject
+        })
+        .then(resolve)
+    }, function errorCallback (error) {
+      console.log(error.code)
+      console.log(error.message)
+      reject(error)
     })
   })
 }
