@@ -35,6 +35,8 @@ const changePw = function (data) {
 }
 
 const logOut = () => {
+  console.log('user ID is', store.user._id)
+  console.log('user token is', store.user.token)
   return $.ajax({
     url: apiUrl + '/sign-out/' + store.user._id,
     method: 'DELETE',
