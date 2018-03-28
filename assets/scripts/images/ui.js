@@ -6,6 +6,16 @@ const addTag = function (event) {
   tagCounter++
 }
 
+const onUploadImageSuccess = function(data) {
+  console.log('worked')
+}
+
+const onUploadImageError = function( jqXHR, textStatus, errorThrown) {
+  console.log(jqXHR)
+}
+
 module.exports = {
-  addTag
+  addTag,
+  onUploadImageSuccess,
+  onUploadImageError
 }

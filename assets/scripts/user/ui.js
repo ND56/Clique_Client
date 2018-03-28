@@ -4,7 +4,6 @@ const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarouselFirstImage = require('../templates/carousel-readout-first-image.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
 const apiUrl = require('../config')
-const Dropzone = require('../../../lib/dropzone')
 
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
@@ -26,6 +25,7 @@ const onSignInSuccess = function (apiResponse) {
   $('#login-form').each(function () {
     this.reset()
   })
+
   // storing view location to inform dom manipulation (e.g., nav button options)
   store.view = 'carousel'
   // end
@@ -137,9 +137,14 @@ const myImagesView = (apiResponse) => {
   for (let i = 0; i < personalImagesArr.length; i++) {
     personalImagesArr[i].tags = personalImagesArr[i].tags.join(' ')
   }
+<<<<<<< HEAD
   // pass modified array with string for tags ro handlebars
   const myImagesReadout = templateMyImages({ images: personalImagesArr })
   $('#my-images-readout-wrapper').append(myImagesReadout)
+=======
+  const myImagesReadout = templateMyImages({ images: apiResponse.images })
+  $('#my-images-page').append(myImagesReadout)
+>>>>>>> Replaced dropzone code with standard form
   // using jquery to add correct image to each handlebars element
   for (let i = 0; i < apiResponse.images.length; i++) {
     $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
