@@ -2,9 +2,10 @@
 
 const events = require('./user/events')
 const imagesEvents = require('./images/events')
-const getFormFields = require('../../lib/get-form-fields')
+// const userLocator = require('./geo-locator-api')
 
 $(() => {
+  // userLocator.getUserLocation()
   // $('#login').hide()
   // $('#auth-view').hide()
   $('#sign-up').hide()
