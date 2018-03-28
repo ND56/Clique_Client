@@ -74,6 +74,7 @@ const onLogOutSuccess = () => {
   $('#static-nav').hide()
   $('#footer').hide()
   $('#auth-view').show()
+  $('#carousel-inner').empty()
   store.view = 'landing page'
 }
 
