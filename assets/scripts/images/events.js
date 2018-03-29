@@ -22,7 +22,7 @@ const onUploadImage = function (event) {
       <div class="col-md-3 image-table-col">` + file.name + `</div>
       <div class="col-md-2 image-table-col">` + file.size + `</div>
       <div class="col-md-2 image-table-col">` + file.type + `</div>
-      <div class="col-md-3 image-table-col" id="status"></div>
+      <div class="col-md-3 image-table-col"></div>
     </div>
   `
   $('.upload-info').append(imageRow)

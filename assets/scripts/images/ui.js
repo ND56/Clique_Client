@@ -7,12 +7,17 @@ const addTag = function (event) {
 }
 
 const onUploadImageSuccess = function(data) {
-  $('#status').append('Success')
+  const previewImage = $('.upload-info').last().children().last().children().first().children()[0]
+  const statusCol = $('.upload-info').last().children().last().children().last()
+  $(statusCol).append('Success')
+  console.log(previewImage)
+  console.log(data)
+  $(previewImage).attr('src', data.image.url)
 }
 
 const onUploadImageError = function( jqXHR, textStatus, errorThrown) {
-  console.log(jqXHR)
-  $('#status').append('Error')
+  const statusCol = $('.upload-info').last().children().last().children().last()
+  $(statusCol).append('Error')
 }
 
 module.exports = {
