@@ -300,12 +300,23 @@ const editImageFailure = () => {
 }
 
 const noGeoTracking = () => {
-  notification.universalToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.')
+  notification.staticToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.', 'red')
 }
 
 const timeOutMessage = () => {
   notification.staticToast('info', 'Location Tracker Timed-Out!', 'Geolocation was taking too long. To avoid excessive wait times, we\'re populating your carousel with images from around the world (instead of your local community).', '#1F888F')
   $('#carousel-header').text('Public Images')
+}
+
+const addCommentSuccess = (apiResponse) => {
+  $('#submit-comment-form').each(function () {
+    this.reset()
+  })
+  $('#comments-wrapper').prepend('<div class="sample-comment" id="comment-template"><span id="new-comment">' + store.mostRecentComment + '</span><br /><span class="commentor-1">-</span><span class="commentor-1" id="new-commentor">' + store.user.email + '</span></div>')
+}
+
+const addCommentFailure = () => {
+  notification.universalToast('error', 'Failed Comment', 'Failed to post your comment. The server might be down; try again later!')
 }
 
 module.exports = {
@@ -331,5 +342,7 @@ module.exports = {
   editImageSuccess,
   editImageFailure,
   noGeoTracking,
-  timeOutMessage
+  timeOutMessage,
+  addCommentSuccess,
+  addCommentFailure
 }

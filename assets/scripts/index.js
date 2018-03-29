@@ -23,8 +23,8 @@ $(() => {
   $('#sign-up-form').on('submit', events.onSignUp)
   $('#sign-up-toggle').on('click', events.onToggleSignUp)
   $('#sign-in-toggle').on('click', events.onToggleSignIn)
+  $('#submit-comment-form').on('submit', events.onAddComment)
 
-  $('body').on('submit', '#submit-comment-form', events.onAddComment)
   $('body').on('click', '.carousel-img-handler-class', events.onSelectCarousel)
   $('body').on('click', '.delete-image-button', events.onDeleteImage)
   $('body').on('click', '.edit-image-button', events.onToggleEditImageModal)

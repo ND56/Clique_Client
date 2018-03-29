@@ -169,8 +169,8 @@ const onAddComment = (event) => {
   // save for DOM manipulation
   store.mostRecentComment = packagedData.image.comments
   api.createComment(packagedData)
-    .then(console.log)
-    .catch(console.error)
+    .then(ui.addCommentSuccess)
+    .catch(ui.addCommentFailure)
 }
 
 module.exports = {
