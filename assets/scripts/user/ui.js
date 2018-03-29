@@ -4,6 +4,7 @@ const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarouselFirstImage = require('../templates/carousel-readout-first-image.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
 const apiUrl = require('../config')
+const geolib = require('geolib')
 
 const onSignInSuccess = function (apiResponse) {
   // storing API response (i.e., user object) to have quick access to
@@ -163,13 +164,39 @@ const myImagesView = (apiResponse) => {
 
 const populateCarouselSuccess = (apiResponse) => {
   // remove user-owned images from the apiRespose
+  console.log('populateCarouselSuccess apiREsponse is', apiResponse)
   const publicImagesArr = apiResponse.images.filter(function (image) {
     return image._owner.email !== store.user.email
+    // return image._owner.email === store.user.email
   })
+  // filter array by distance
+  const geoArr = publicImagesArr.filter(function (image) {
+    // populates an array with elements that evaluate to truthy based
+    // on what you put here
+    image.distance = geolib.getDistance(
+      {latitude: image.latitude, longitude: image.longitude},
+      {latitude: store.user.latitude, longitude: store.user.longitude})
+    console.log('LINE 166', image.distance)
+    return image.distance < 25000
+    // element.distance < 25000
+    // const distance = geolib.getDistance(
+    //   {latitude: publicImagesArr[i].latitude, longitude: publicImagesArr[i].longitude},
+    //   {latitude: store.user.latitude, longitude: store.user.longitude})
+    //   // 25000 (~15 miles)
+    // console.log('image is', image)
+    // console.log('distance is', distance)
+    // console.log('distance is type', typeof distance)
+    // console.log('publicImagesArr is', publicImagesArr)
+    // i++
+  })
+  console.log('LINE 179', geoArr)
+  // pass the geoArr to handlebars
   // run first public image through this handlebars to set active status in carousel
-  const carouselReadoutFirstImage = templateCarouselFirstImage({ image: publicImagesArr[0] })
+  const carouselReadoutFirstImage = templateCarouselFirstImage({ image: geoArr[0] })
+  // remove first image from array
+  geoArr.splice(0, 1)
   // run subsequent public images through this handlebars so active status not set
-  const carouselReadout = templateCarousel({ images: publicImagesArr })
+  const carouselReadout = templateCarousel({ images: geoArr })
   // append images to DOM
   $('#carousel-inner').append(carouselReadoutFirstImage)
   $('#carousel-inner').append(carouselReadout)
