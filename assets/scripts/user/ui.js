@@ -3,6 +3,7 @@ const store = require('../store.js')
 const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarouselFirstImage = require('../templates/carousel-readout-first-image.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
+// const templateComments = require('../templates/comments-readout.handlebars')
 const apiUrl = require('../config')
 const geolib = require('geolib')
 
@@ -248,6 +249,20 @@ const populateCarouselModalSuccess = (apiResponse) => {
   $('#single-owned-value').text(apiResponse.image._owner.email)
   if (apiResponse.image.tags.length > 0) {
     $('#single-tag-value').text(apiResponse.image.tags)
+  }
+  // iterate out the comments
+  for (let i = 0; i < apiResponse.image.comments.length; i++) {
+    const newTableId = 'comment-div' + i
+    const newCommentSpanId = 'comment-span' + i
+    const newCommentorSpanId = 'commentor-span' + i
+    const $clone = $('#comment-template').clone().show()
+    $clone.attr('id', newTableId)
+    $clone.appendTo('#comments-wrapper')
+    $('#' + newTableId + ' #new-comment').attr('id', newCommentSpanId)
+    $('#' + newTableId + ' #new-commentor').attr('id', newCommentorSpanId)
+    $('#' + newCommentSpanId).text(apiResponse.image.comments[i][0])
+    $('#' + newCommentorSpanId).text(apiResponse.image.comments[i][1])
+    console.log(apiResponse.image.comments)
   }
 }
 

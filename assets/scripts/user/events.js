@@ -132,6 +132,7 @@ const onDeleteImage = (event) => {
 
 const onSelectCarousel = (event) => {
   event.preventDefault()
+  $('#comments-wrapper').empty()
   store.currentImageID = $(event.target).data().id
   $('#single-image-readout-modal').modal('show')
   api.findImageById()
@@ -165,6 +166,8 @@ const onAddComment = (event) => {
   const packagedData = getFormFields(event.target)
   console.log('Submit works!')
   console.log(packagedData)
+  // save for DOM manipulation
+  store.mostRecentComment = packagedData.image.comments
   api.createComment(packagedData)
     .then(console.log)
     .catch(console.error)

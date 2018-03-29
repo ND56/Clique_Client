@@ -14,6 +14,7 @@ $(() => {
   $('#static-nav').hide()
   $('#upload-images-page').hide()
   $('#my-images-page').hide()
+  $('#comment-template').hide()
 
   $('#edit-pwd-li').on('click', events.onToggleEditPwdModal)
   $('#change-pw-form').on('submit', events.onEditPassword)
