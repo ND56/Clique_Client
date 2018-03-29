@@ -219,6 +219,10 @@ img.img-constrain {
   width: auto;
 }
 
+.commentor-1 {
+  color: black;
+}
+
 .single-image {
   height: 350px;
   // background-color: yellow;
@@ -254,9 +258,22 @@ img.img-constrain {
   margin-bottom: 10px;
 }
 
+.single-owned-value {
+  color: $tangerine;
+}
+
 .single-location {
   font-style: italic;
   text-align: center;
+  margin-top: -4px;
+}
+
+.interim-wrapper {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  margin-bottom: -9px;
 }
 
 .single-tags {
@@ -268,10 +285,10 @@ img.img-constrain {
   color: black;
 }
 
-.comments-form {
-  border-top: 2px solid black;
-  margin-top: 5%;
-}
+// .comments-form {
+//   border-top: 2px solid black;
+//   margin-top: 5%;
+// }
 
 .comments-wrapper {
   position: relative;
@@ -290,7 +307,13 @@ img.img-constrain {
   right: 0%;
   width: 46px;
   text-align: center;
-  padding-left: 13%
+  padding-left: 9%;
+  border: 2px solid black;
+}
+
+.edit-comment-form {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .sample-comment {
@@ -304,8 +327,9 @@ img.img-constrain {
 #inputComments {
   position: relative;
   left: 1%;
-  bottom: 48px;
+  bottom: 52px;
   width: 121%;
+  border: 2px solid black;
 }
 
 // ---------------Carousel Page - End---------------
@@ -330,6 +354,15 @@ img.img-constrain {
 
 .single-image-readout-modal-set-width {
   width: 595px !important;
+}
+
+.edit-comment-button {
+  display: block;
+  margin-left: 44%;
+}
+
+.commentor-1 {
+  margin-left: 34px;
 }
 // single-image-readout-modal - END
 
@@ -441,6 +474,7 @@ img.img-constrain {
   height: 8%;
   background-color: $tangerine;
   padding-top: 1.5%;
+  color: white;
 }
 
 .my-images-info-wrapper {
@@ -459,8 +493,8 @@ img.img-constrain {
   margin-left: 15%;
   font-size: 12px;
   margin-top: 2%;
-  background-color: $white;
-  color: $tangerine;
+  background-color: $tangerine;
+  color: $white;
   transition: background 0.3s ease-in-out;
   margin-bottom: 5%;
 }
@@ -469,16 +503,20 @@ img.img-constrain {
   padding: 2%;
   font-size: 12px;
   margin-top: 2%;
-  background-color: $white;
-  color: $tangerine;
+  background-color: $tangerine;
+  color: $white;
   transition: background 0.3s ease-in-out;
   margin-bottom: 5%;
 }
 
+.image-readout-value {
+  color: $tangerine;
+}
+
 .delete-image-button:hover,
 .edit-image-button:hover {
-  background-color: $tangerine;
-  color: $white;
+  background-color: $white;
+  color: $tangerine;
 }
 
 .no-images {
@@ -498,6 +536,14 @@ img.img-constrain {
   border-radius: 10px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   color: white;
+}
+
+.image-readout-field {
+  text-decoration: underline;
+}
+
+.img-tags {
+  color: $tangerine;
 }
 
 // ------------My Images End - End ---------------

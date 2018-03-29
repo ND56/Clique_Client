@@ -147,6 +147,18 @@ const createComment = (packagedData) => {
   })
 }
 
+const editComment = (packagedData) => {
+  return $.ajax({
+    url: apiUrl + '/edit-comment/' + store.currentImageID,
+    method: 'PATCH',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: packagedData
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
@@ -159,5 +171,6 @@ module.exports = {
   editImage,
   updateUser,
   findByDistance,
-  createComment
+  createComment,
+  editComment
 }

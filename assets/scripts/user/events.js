@@ -132,6 +132,7 @@ const onDeleteImage = (event) => {
 
 const onSelectCarousel = (event) => {
   event.preventDefault()
+  $('#comments-wrapper').empty()
   store.currentImageID = $(event.target).data().id
   $('#single-image-readout-modal').modal('show')
   api.findImageById()
@@ -165,9 +166,37 @@ const onAddComment = (event) => {
   const packagedData = getFormFields(event.target)
   console.log('Submit works!')
   console.log(packagedData)
+  // save for DOM manipulation
+  store.mostRecentComment = packagedData.image.comments
   api.createComment(packagedData)
-    .then(console.log)
-    .catch(console.error)
+    .then(ui.addCommentSuccess)
+    .catch(ui.addCommentFailure)
+}
+
+const onToggleEditComment = function (event) {
+  event.preventDefault()
+  console.log('Button works')
+  $('#single-image-readout-modal').modal('hide')
+  $('#edit-comment-modal').modal('show')
+  console.log(event.target)
+  console.log(event.target.data)
+  const data = $(event.target).data()
+  const id = $(event.target).val('id')
+  const oldCommentText = data.id
+  const oldCommentId = id[0].id
+  store.commentId = oldCommentId
+  ui.populateEditModal(oldCommentText, oldCommentId)
+}
+
+const onSubmitComment = function (event) {
+  event.preventDefault()
+  const newData = getFormFields(event.target)
+  console.log(newData)
+  newData.image.commentId = store.commentId
+  console.log(newData)
+  api.editComment(newData)
+    .then(ui.editCommentSuccess)
+    .catch(ui.editCommentFailure)
 }
 
 module.exports = {
@@ -185,5 +214,7 @@ module.exports = {
   onSelectCarousel,
   onToggleEditImageModal,
   onEditImage,
-  onAddComment
+  onAddComment,
+  onToggleEditComment,
+  onSubmitComment
 }

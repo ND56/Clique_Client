@@ -12,7 +12,7 @@
         <!-- image owner -->
         <div class="image-readout-owner"><span class="image-readout-field">Owner:</span> <span class="image-readout-value" data-id="owner-{{image._id}}">{{image._owner.email}}</span></div>
         <!-- image tags -->
-        <div class="image-readout-tags"><span class="image-readout-field">Tags:</span> <span class="image-readout-value" data-id="tags-{{image._id}}">{{image.tags}}</span></div>
+        <div class="image-readout-tags"><span class="image-readout-field">Tags:</span> <span class="image-readout-value img-tags" data-id="tags-{{image._id}}">{{image.tags}}</span></div>
         <!-- edit/delete buttons -->
         <button class="btn btn-default edit-image-button" data-edit="{{image._id}}">Edit Image</button>
         <button class="btn btn-default delete-image-button" data-delete="{{image._id}}">Delete Image</button>

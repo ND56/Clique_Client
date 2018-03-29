@@ -126,9 +126,11 @@
                   <div class="single-image" id="single-image"></div>
                   <div class="carousel-image-info-wrapper">
                     <div class="single-location" id="single-location"><span class="city" id="city">City</span>, <span class="state" id="state">State</span></div>
-                    <div class="single-description" id="single-description"><span class="single-owned-prop">Description:</span> <span id="single-description-span">This is a sample description because this image wasn't uploaded with a description.</span></div>
-                    <div class="single-owner" id="single-owner"><span class="single-owned-prop">Owned by:</span> <span class="single-owned-value" id="single-owned-value"></span></div>
-                    <div class="single-tags" id="single-tags"><span class="single-owned-prop">Tags:</span> <span class="single-tag-value" id="single-tag-value">#sampleTag1 #sampleTag2 #sampleTag3</span></div>
+                    <div class="interim-wrapper">
+                      <div class="single-description" id="single-description"><span class="single-owned-prop">Description:</span> <span id="single-description-span">This is a sample description because this image wasn't uploaded with a description.</span></div>
+                      <div class="single-owner" id="single-owner"><span class="single-owned-prop">Owned by:</span> <span class="single-owned-value" id="single-owned-value"></span></div>
+                      <div class="single-tags" id="single-tags"><span class="single-owned-prop">Tags:</span> <span class="single-tag-value" id="single-tag-value">#sampleTag1 #sampleTag2 #sampleTag3</span></div>
+                    </div>
                     <!-- submit comment form start -->
                     <form class="form-horizontal" id="submit-comment-form">
                       <div class="form-group comments-form">
@@ -138,21 +140,17 @@
                       </div>
                       <div class="form-group">
                         <div class="input-div col-sm-offset-1 col-sm-9">
-                          <textarea class="form-control" id="inputComments" name="image[commments]" placeholder="New Comment!"></textarea>
+                          <textarea class="form-control" id="inputComments" name="image[comments]" placeholder="New Comment!"></textarea>
                         </div>
                       </div>
                     </form>
                     <!-- Comments wrapper -->
                     <div class="comments-wrapper" id="comments-wrapper">
-                      <div class="sample-comment" id="sample-comment1"><span>This is a sample comment. I think that's a great picture. Awesome job!</span><br /><span class="commentor" id="commentor">-ndrew56@gmail.com</span></div>
-                      <div class="sample-comment" id="sample-comment2"><span id="new-comment2">This is a sample comment. I think that's a great picture. Awesome job!</span><br /><span class="commentor" id="otherCommentor">-ndrew56@gmail.com</span></div>
-                      <div class="sample-comment"><span>This is a sample comment. I think that's a great picture. Awesome job!</span><br /><span class="commentor">-ndrew56@gmail.com</span></div>
-                      <div class="sample-comment"><span>This is a sample comment. I think that's a great picture. Awesome job!</span><br /><span class="commentor">-ndrew56@gmail.com</span></div>
-                      <div class="sample-comment"><span>This is a sample comment. I think that's a great picture. Awesome job!</span><br /><span class="commentor">-ndrew56@gmail.com</span></div>
-                      <div class="sample-comment"><span id="new-comment">This is a sample comment. I think that's a great picture. Awesome job!</span><br /><span class="commentor">-ndrew56@gmail.com</span></div>
                     </div>
                     <!-- Comments wrapper -->
                   </div>
+                  <!-- This is a hidden template; do not delete! -->
+                  <div class="sample-comment" id="comment-template"><span id="new-comment">This is a sample comment. I think that's a great picture. Awesome job!</span><br /><span class="commentor-1">-</span><span class="commentor-1" id="new-commentor">-ndrew56@gmail.com</span></div>
                   <!-- Info wrapper end -->
               </div>
             </div>
@@ -285,10 +283,10 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="description1" class="col-sm-2 control-label description-label">Description</label>
+                <label for="description2" class="col-sm-2 control-label description-label">Description</label>
                 <div class="input-div col-sm-10">
                   <!-- <input type="text" class="form-control" id="description1" name="image[description]" placeholder="Tell your community a bit about your picture!"> -->
-                  <textarea class="form-control" id="description1" name="image[description]" placeholder="Tell your community a bit about your picture!"></textarea>
+                  <textarea class="form-control" id="description2" name="image[description]" placeholder="Tell your community a bit about your picture!"></textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -308,6 +306,32 @@
         </div>
       </div>
       <!-- Edit Image Modal - End -->
+
+      <!-- Edit Comment Modal - Start -->
+      <div class="modal fade" id="edit-comment-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content edit-image-modal-content" id="edit-comment-modal-content">
+            <div class="edit-image-modal-banner"></div>
+            <!-- start form for Edit Image modal-->
+            <form class="form-horizontal edit-comment-form" id="edit-comment-form">
+              <div class="form-group">
+                <label for="descr3" class="col-sm-2 control-label description-label">Comment</label>
+                <div class="input-div col-sm-10">
+                  <!-- <input type="text" class="form-control" id="description1" name="image[description]" placeholder="Tell your community a bit about your picture!"> -->
+                  <textarea class="form-control" id="descr3" name="image[updatedComment]" placeholder="Tell your community a bit about your picture!"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default modal-button">Edit</button>
+                </div>
+              </div>
+            </form>
+            <!-- end form for Edit Image modal-->
+          </div>
+        </div>
+      </div>
+      <!-- Edit Comment Modal - End -->
 
       <footer id="footer"></footer>
 

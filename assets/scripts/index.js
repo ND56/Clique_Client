@@ -14,6 +14,7 @@ $(() => {
   $('#static-nav').hide()
   $('#upload-images-page').hide()
   $('#my-images-page').hide()
+  $('#comment-template').hide()
 
   $('#edit-pwd-li').on('click', events.onToggleEditPwdModal)
   $('#change-pw-form').on('submit', events.onEditPassword)
@@ -22,8 +23,10 @@ $(() => {
   $('#sign-up-form').on('submit', events.onSignUp)
   $('#sign-up-toggle').on('click', events.onToggleSignUp)
   $('#sign-in-toggle').on('click', events.onToggleSignIn)
+  $('#submit-comment-form').on('submit', events.onAddComment)
+  $('#edit-comment-form').on('submit', events.onSubmitComment)
 
-  $('body').on('submit', '#submit-comment-form', events.onAddComment)
+  $('body').on('click', '.edit-comment-button', events.onToggleEditComment)
   $('body').on('click', '.carousel-img-handler-class', events.onSelectCarousel)
   $('body').on('click', '.delete-image-button', events.onDeleteImage)
   $('body').on('click', '.edit-image-button', events.onToggleEditImageModal)

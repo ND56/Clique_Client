@@ -3,6 +3,7 @@ const store = require('../store.js')
 const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarouselFirstImage = require('../templates/carousel-readout-first-image.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
+// const templateComments = require('../templates/comments-readout.handlebars')
 const apiUrl = require('../config')
 const geolib = require('geolib')
 
@@ -242,12 +243,31 @@ const deleteImageFailure = () => {
 
 const populateCarouselModalSuccess = (apiResponse) => {
   console.log(apiResponse.image)
+  $('#city').text(apiResponse.image.city)
+  $('#state').text(apiResponse.image.state)
   $('#single-title').text(apiResponse.image.title)
   $('#single-image').css('background-image', 'url(' + apiResponse.image.url + ')')
   $('#single-description-span').text(apiResponse.image.description)
   $('#single-owned-value').text(apiResponse.image._owner.email)
   if (apiResponse.image.tags.length > 0) {
     $('#single-tag-value').text(apiResponse.image.tags)
+  }
+  // iterate out the comments
+  for (let i = 0; i < apiResponse.image.comments.length; i++) {
+    const newTableId = 'comment-div' + i
+    const newCommentSpanId = 'comment-span' + i
+    const newCommentorSpanId = 'commentor-span' + i
+    const $clone = $('#comment-template').clone().show()
+    $clone.attr('id', newTableId)
+    $clone.appendTo('#comments-wrapper')
+    $('#' + newTableId + ' #new-comment').attr('id', newCommentSpanId)
+    $('#' + newTableId + ' #new-commentor').attr('id', newCommentorSpanId)
+    $('#' + newCommentSpanId).text(apiResponse.image.comments[i][0])
+    $('#' + newCommentorSpanId).text(apiResponse.image.comments[i][1])
+    console.log(apiResponse.image.comments)
+    if (apiResponse.image.comments[i][1] === store.user.email) {
+      $('#' + newTableId).append('<button class="btn btn-default edit-comment-button" data-id="' + apiResponse.image.comments[i][0] + '" id="' + apiResponse.image.comments[i][2] + '">Edit</button>')
+    }
   }
 }
 
@@ -285,12 +305,43 @@ const editImageFailure = () => {
 }
 
 const noGeoTracking = () => {
-  notification.universalToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.')
+  notification.staticToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.', 'red')
 }
 
 const timeOutMessage = () => {
   notification.staticToast('info', 'Location Tracker Timed-Out!', 'Geolocation was taking too long. To avoid excessive wait times, we\'re populating your carousel with images from around the world (instead of your local community).', '#1F888F')
   $('#carousel-header').text('Public Images')
+}
+
+const addCommentSuccess = (apiResponse) => {
+  $('#submit-comment-form').each(function () {
+    this.reset()
+  })
+  $('#comments-wrapper').prepend('<div class="sample-comment" id="comment-template"><span id="new-comment">' + store.mostRecentComment + '</span><br /><span class="commentor-1">-</span><span class="commentor-1" id="new-commentor">' + store.user.email + '</span></div>')
+}
+
+const addCommentFailure = () => {
+  notification.universalToast('error', 'Failed Comment', 'Failed to post your comment. The server might be down; try again later!')
+}
+
+const populateEditModal = function (oldCommentText, oldCommentId) {
+  $('#descr3').text(oldCommentText)
+}
+
+const editCommentSuccess = function () {
+  $('#edit-comment-form').each(function () {
+    this.reset()
+  })
+  $('#edit-comment-modal').modal('hide')
+  notification.universalToast('success', 'Success!', 'Your comment was successfully updated!')
+}
+
+const editCommentFailure = function () {
+  $('#edit-comment-form').each(function () {
+    this.reset()
+  })
+  $('#edit-comment-modal').modal('hide')
+  notification.universalToast('error', 'Failed Comment', 'Failed to post your comment. The server might be down; try again later!')
 }
 
 module.exports = {
@@ -316,5 +367,10 @@ module.exports = {
   editImageSuccess,
   editImageFailure,
   noGeoTracking,
-  timeOutMessage
+  timeOutMessage,
+  addCommentSuccess,
+  addCommentFailure,
+  populateEditModal,
+  editCommentSuccess,
+  editCommentFailure
 }
