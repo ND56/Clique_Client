@@ -164,7 +164,10 @@ const onAddComment = (event) => {
   event.preventDefault()
   const packagedData = getFormFields(event.target)
   console.log('Submit works!')
-
+  console.log(packagedData)
+  api.createComment(packagedData)
+    .then(console.log)
+    .catch(console.error)
 }
 
 module.exports = {

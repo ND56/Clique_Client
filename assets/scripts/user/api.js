@@ -135,6 +135,18 @@ const updateUser = (latitude, longitude, apiResponse) => {
   })
 }
 
+const createComment = (packagedData) => {
+  return $.ajax({
+    url: apiUrl + '/add-comment/' + store.currentImageID,
+    method: 'PATCH',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: packagedData
+  })
+}
+
 module.exports = {
   signIn,
   signUp,
@@ -146,5 +158,6 @@ module.exports = {
   findImageById,
   editImage,
   updateUser,
-  findByDistance
+  findByDistance,
+  createComment
 }
