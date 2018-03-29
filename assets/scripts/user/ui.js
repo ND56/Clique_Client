@@ -278,7 +278,7 @@ const populateCarouselModalFailure = (apiResponse) => {
 const toggleEditImageModalSuccess = (apiResponse) => {
   $('#edit-image-modal').modal('show')
   $('#title1').val(apiResponse.image.title)
-  $('#description1').text(apiResponse.image.description)
+  $('#description2').text(apiResponse.image.description)
   $('#tags1').val(apiResponse.image.tags.join(' '))
 }
 
