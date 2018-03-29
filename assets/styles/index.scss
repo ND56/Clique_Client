@@ -456,6 +456,10 @@ img.img-constrain {
 
 #image-upload-form {
   display: inline-block;
+  margin-left: 20px;
+  margin-top: 70px;
+  padding: 24px;
+  border: 1px solid black;
 }
 
 #image-details {
@@ -465,6 +469,15 @@ img.img-constrain {
 .image-details-group {
   width: 300px;
   border-bottom: 1px solid $tangerine;
+}
+
+#upload-btn {
+  width: 80px;
+  float: right;
+}
+
+.image-uploader-btn {
+  float: left;
 }
 
 .image-details-input {

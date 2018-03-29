@@ -2,7 +2,7 @@
 
 let tagCounter = 0
 const addTag = function (event) {
-  $('#image-upload-form').append('<input type="text" class="image-details-input" name="image[tags][]" placeholder="#tag" required>')
+  $('#image-upload-form').append('<div class="image-details-group"><input type="text" class="image-details-input" name="image[tags][]" placeholder="#tag" required></div><br>')
   tagCounter++
 }
 
@@ -13,6 +13,8 @@ const onUploadImageSuccess = function(data) {
   console.log(previewImage)
   console.log(data)
   $(previewImage).attr('src', data.image.url)
+  const uploadForm = document.getElementById('image-upload-form')
+  uploadForm.reset()
 }
 
 const onUploadImageError = function( jqXHR, textStatus, errorThrown) {
