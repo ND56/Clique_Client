@@ -36,6 +36,12 @@ footer {
 }
 // editing scroll bars - END
 
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 // ---------------Global - End---------------
 
 // ------------Landing Page - Start ---------------
@@ -393,83 +399,13 @@ img.img-constrain {
 
 // ------------Upload Images Page - Start ---------------
 
-.upload-info .headers {
-  text-align: center;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.image-table-row {
-  height: 60px;
-  margin-top: 10px;
-}
-
-.upload-info {
-  overflow: scroll;
-  height: 300px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.uploader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px dashed $tangerine;
-  height: 300px;
-  width: 300px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#image-upload-form {
-  text-align: center;
-}
-
-#image-details {
-  margin-top: 20px;
-  display: inline-block;
-}
-.image-details-group {
-  width: 300px;
-  border-bottom: 1px solid $tangerine;
-}
-
-.image-details-input {
-  border: none;
-  outline: none;
-}
-
-.image-table-col {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: inherit;
-}
-
-.progress {
-  width: 50%;
-  margin-bottom: 0px;
-}
-
-.thumbnail {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 0px;
-}
-
-.upload-info .row {
-  // height: 60px;
-  border: 1px solid #d3d3d3;
-}
 // ------------Upload Images End - End ---------------
 
 // ------------My Images Page - Start ---------------
 .my-images-header {
   text-align: center;
-  font-size: 3em;
+  font-size: 3.5em;
+  font-family: 'Dancing Script', cursive;
 }
 
 .image-readout-wrapper {
@@ -485,6 +421,7 @@ img.img-constrain {
 .my-images-readout-wrapper {
   padding-right: 8%;
   margin-top: 2%;
+  margin-bottom: 50px;
 }
 
 .image-readout-image {
@@ -542,6 +479,25 @@ img.img-constrain {
 .edit-image-button:hover {
   background-color: $tangerine;
   color: $white;
+}
+
+.no-images {
+  height: 350px;
+  background-color: $tangerine;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  left: 3.5%;
+  margin-top: 6%;
+  border: 1px solid black;
+  text-align: center;
+  padding-top: 11%;
+  font-size: 22px;
+  font-style: italic;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  color: white;
 }
 
 // ------------My Images End - End ---------------
