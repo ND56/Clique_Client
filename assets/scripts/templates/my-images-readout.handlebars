@@ -6,13 +6,16 @@
       <!-- image itself ****** use jquery to edit the background-image property to the appropriate image -->
       <div class="image-readout-image" data-id="image-{{image._id}}"></div>
       <!-- image description -->
-      <div class="image-readout-description"><span class="image-readout-field">Description:</span> <span class="image-readout-value" data-id="description-{{image._id}}">{{image.description}}</span></div>
-      <!-- image owner -->
-      <div class="image-readout-owner"><span class="image-readout-field">Owner:</span> <span class="image-readout-value" data-id="owner-{{image._id}}">{{image._owner.email}}</span></div>
-      <!-- image tags -->
-      <div class="image-readout-tags"><span class="image-readout-field">Tags:</span> <span class="image-readout-value" data-id="tags-{{image._id}}">{{image.tags}}</span></div>
-      <!-- edit/delete buttons -->
-      <button class="btn btn-default edit-image-button" data-edit="{{image._id}}">Edit Image</button>
-      <button class="btn btn-default delete-image-button" data-delete="{{image._id}}">Delete Image</button>
+      <!-- Wrapper for image info -->
+      <div class="my-images-info-wrapper">
+        <div class="image-readout-description"><span class="image-readout-field">Description:</span> <span class="image-readout-value" data-id="description-{{image._id}}">{{image.description}}</span></div>
+        <!-- image owner -->
+        <div class="image-readout-owner"><span class="image-readout-field">Owner:</span> <span class="image-readout-value" data-id="owner-{{image._id}}">{{image._owner.email}}</span></div>
+        <!-- image tags -->
+        <div class="image-readout-tags"><span class="image-readout-field">Tags:</span> <span class="image-readout-value" data-id="tags-{{image._id}}">{{image.tags}}</span></div>
+        <!-- edit/delete buttons -->
+        <button class="btn btn-default edit-image-button" data-edit="{{image._id}}">Edit Image</button>
+        <button class="btn btn-default delete-image-button" data-delete="{{image._id}}">Delete Image</button>
+      </div>
     </div>
 {{/each}}

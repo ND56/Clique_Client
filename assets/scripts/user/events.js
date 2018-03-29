@@ -51,7 +51,16 @@ const onSignIn = function (event) {
       }
     })
     .catch(function (error) {
-      ui.onSignInFailure(error)
+      if (error.code === 3) {
+        ui.timeOutMessage()
+        ui.onSignInSuccess(store.user)
+        api.getImages()
+          .then(ui.populateCarouselSuccess)
+          .catch(ui.populateCarouselFailure)
+        store.view = 'carousel'
+      } else {
+        ui.onSignInFailure(error)
+      }
     })
 }
 

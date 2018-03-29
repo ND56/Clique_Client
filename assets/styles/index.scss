@@ -13,12 +13,29 @@ body {
 }
 
 footer {
-  height: 64px;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-  margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  height: 8%;
+  width: 100%;
   background-color: $tangerine;
 }
+
+// editing scroll bars - START
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+// editing scroll bars - END
+
 // ---------------Global - End---------------
 
 // ------------Landing Page - Start ---------------
@@ -217,16 +234,23 @@ img.img-constrain {
 }
 
 .carousel-image-info-wrapper {
-  margin: 28px 30px;
+  overflow: auto;
+  margin: 0px;
+  padding-top: 16px;
+  margin-left: 11px;
+  margin-right: 11px;
+  height: 322px;
 }
 
 .single-description,
-.single-owner {
+.single-owner,
+.single-location {
   margin-bottom: 10px;
 }
 
-.single-description {
+.single-location {
   font-style: italic;
+  text-align: center;
 }
 
 .single-tags {
@@ -236,6 +260,46 @@ img.img-constrain {
 .single-owned-prop {
   text-decoration: underline;
   color: black;
+}
+
+.comments-form {
+  border-top: 2px solid black;
+  margin-top: 5%;
+}
+
+.comments-wrapper {
+  position: relative;
+  bottom: 48px;
+  margin-bottom: -9%;
+}
+
+.commentor {
+  color: black;
+}
+
+.comments-button {
+  position: relative;
+  top: 8px;
+  margin-top: 37%;
+  right: 0%;
+  width: 46px;
+  text-align: center;
+  padding-left: 13%
+}
+
+.sample-comment {
+  padding: 2%;
+  background-color: $tangerine;
+  color: $white;
+  border-radius: 13px;
+  margin-bottom: 0.5%;
+}
+
+#inputComments {
+  position: relative;
+  left: 1%;
+  bottom: 48px;
+  width: 121%;
 }
 
 // ---------------Carousel Page - End---------------
@@ -409,8 +473,18 @@ img.img-constrain {
 }
 
 .image-readout-wrapper {
-  height: 400px;
+  height: 426px;
   margin-bottom: 50px;
+  padding: 0px;
+  border: 1px solid black;
+  font-size: 13px;
+  overflow: auto;
+  border-radius: 7px;
+}
+
+.my-images-readout-wrapper {
+  padding-right: 8%;
+  margin-top: 2%;
 }
 
 .image-readout-image {
@@ -423,6 +497,53 @@ img.img-constrain {
   background-position-x: center;
   background-position-y: center;
 }
+
+.image-readout-title {
+  text-align: center;
+  font-size: 18px;
+  height: 8%;
+  background-color: $tangerine;
+  padding-top: 1.5%;
+}
+
+.my-images-info-wrapper {
+  margin-top: 3%;
+  margin-left: 3%;
+}
+
+.image-readout-description,
+.image-readout-owner,
+.image-readout-tags {
+  padding-bottom: 2%;
+}
+
+.edit-image-button {
+  padding: 2%;
+  margin-left: 15%;
+  font-size: 12px;
+  margin-top: 2%;
+  background-color: $white;
+  color: $tangerine;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 5%;
+}
+
+.delete-image-button {
+  padding: 2%;
+  font-size: 12px;
+  margin-top: 2%;
+  background-color: $white;
+  color: $tangerine;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 5%;
+}
+
+.delete-image-button:hover,
+.edit-image-button:hover {
+  background-color: $tangerine;
+  color: $white;
+}
+
 // ------------My Images End - End ---------------
 
 // ------------Media Queries - Start ---------------
