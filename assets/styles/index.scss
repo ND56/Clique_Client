@@ -308,7 +308,12 @@ img.img-constrain {
   width: 46px;
   text-align: center;
   padding-left: 9%;
-  border: 3px solid $tangerine;
+  border: 2px solid black;
+}
+
+.edit-comment-form {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .sample-comment {
@@ -322,8 +327,9 @@ img.img-constrain {
 #inputComments {
   position: relative;
   left: 1%;
-  bottom: 48px;
+  bottom: 52px;
   width: 121%;
+  border: 2px solid black;
 }
 
 // ---------------Carousel Page - End---------------
@@ -348,6 +354,15 @@ img.img-constrain {
 
 .single-image-readout-modal-set-width {
   width: 595px !important;
+}
+
+.edit-comment-button {
+  display: block;
+  margin-left: 44%;
+}
+
+.commentor-1 {
+  margin-left: 34px;
 }
 // single-image-readout-modal - END
 

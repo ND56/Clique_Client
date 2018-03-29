@@ -265,6 +265,9 @@ const populateCarouselModalSuccess = (apiResponse) => {
     $('#' + newCommentSpanId).text(apiResponse.image.comments[i][0])
     $('#' + newCommentorSpanId).text(apiResponse.image.comments[i][1])
     console.log(apiResponse.image.comments)
+    if (apiResponse.image.comments[i][1] === store.user.email) {
+      $('#' + newTableId).append('<button class="btn btn-default edit-comment-button" data-id="' + apiResponse.image.comments[i][0] + '" id="' + apiResponse.image.comments[i][2] + '">Edit</button>')
+    }
   }
 }
 
@@ -321,6 +324,26 @@ const addCommentFailure = () => {
   notification.universalToast('error', 'Failed Comment', 'Failed to post your comment. The server might be down; try again later!')
 }
 
+const populateEditModal = function (oldCommentText, oldCommentId) {
+  $('#descr3').text(oldCommentText)
+}
+
+const editCommentSuccess = function () {
+  $('#edit-comment-form').each(function () {
+    this.reset()
+  })
+  $('#edit-comment-modal').modal('hide')
+  notification.universalToast('success', 'Success!', 'Your comment was successfully updated!')
+}
+
+const editCommentFailure = function () {
+  $('#edit-comment-form').each(function () {
+    this.reset()
+  })
+  $('#edit-comment-modal').modal('hide')
+  notification.universalToast('error', 'Failed Comment', 'Failed to post your comment. The server might be down; try again later!')
+}
+
 module.exports = {
   onSignInSuccess,
   onSignInFailure,
@@ -346,5 +369,8 @@ module.exports = {
   noGeoTracking,
   timeOutMessage,
   addCommentSuccess,
-  addCommentFailure
+  addCommentFailure,
+  populateEditModal,
+  editCommentSuccess,
+  editCommentFailure
 }

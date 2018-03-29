@@ -173,6 +173,32 @@ const onAddComment = (event) => {
     .catch(ui.addCommentFailure)
 }
 
+const onToggleEditComment = function (event) {
+  event.preventDefault()
+  console.log('Button works')
+  $('#single-image-readout-modal').modal('hide')
+  $('#edit-comment-modal').modal('show')
+  console.log(event.target)
+  console.log(event.target.data)
+  const data = $(event.target).data()
+  const id = $(event.target).val('id')
+  const oldCommentText = data.id
+  const oldCommentId = id[0].id
+  store.commentId = oldCommentId
+  ui.populateEditModal(oldCommentText, oldCommentId)
+}
+
+const onSubmitComment = function (event) {
+  event.preventDefault()
+  const newData = getFormFields(event.target)
+  console.log(newData)
+  newData.image.commentId = store.commentId
+  console.log(newData)
+  api.editComment(newData)
+    .then(ui.editCommentSuccess)
+    .catch(ui.editCommentFailure)
+}
+
 module.exports = {
   onSignIn,
   onToggleSignUp,
@@ -188,5 +214,7 @@ module.exports = {
   onSelectCarousel,
   onToggleEditImageModal,
   onEditImage,
-  onAddComment
+  onAddComment,
+  onToggleEditComment,
+  onSubmitComment
 }

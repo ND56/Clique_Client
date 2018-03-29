@@ -24,7 +24,9 @@ $(() => {
   $('#sign-up-toggle').on('click', events.onToggleSignUp)
   $('#sign-in-toggle').on('click', events.onToggleSignIn)
   $('#submit-comment-form').on('submit', events.onAddComment)
+  $('#edit-comment-form').on('submit', events.onSubmitComment)
 
+  $('body').on('click', '.edit-comment-button', events.onToggleEditComment)
   $('body').on('click', '.carousel-img-handler-class', events.onSelectCarousel)
   $('body').on('click', '.delete-image-button', events.onDeleteImage)
   $('body').on('click', '.edit-image-button', events.onToggleEditImageModal)

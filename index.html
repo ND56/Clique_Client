@@ -283,10 +283,10 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="description1" class="col-sm-2 control-label description-label">Description</label>
+                <label for="description2" class="col-sm-2 control-label description-label">Description</label>
                 <div class="input-div col-sm-10">
                   <!-- <input type="text" class="form-control" id="description1" name="image[description]" placeholder="Tell your community a bit about your picture!"> -->
-                  <textarea class="form-control" id="description1" name="image[description]" placeholder="Tell your community a bit about your picture!"></textarea>
+                  <textarea class="form-control" id="description2" name="image[description]" placeholder="Tell your community a bit about your picture!"></textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -306,6 +306,32 @@
         </div>
       </div>
       <!-- Edit Image Modal - End -->
+
+      <!-- Edit Comment Modal - Start -->
+      <div class="modal fade" id="edit-comment-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content edit-image-modal-content" id="edit-comment-modal-content">
+            <div class="edit-image-modal-banner"></div>
+            <!-- start form for Edit Image modal-->
+            <form class="form-horizontal edit-comment-form" id="edit-comment-form">
+              <div class="form-group">
+                <label for="descr3" class="col-sm-2 control-label description-label">Comment</label>
+                <div class="input-div col-sm-10">
+                  <!-- <input type="text" class="form-control" id="description1" name="image[description]" placeholder="Tell your community a bit about your picture!"> -->
+                  <textarea class="form-control" id="descr3" name="image[updatedComment]" placeholder="Tell your community a bit about your picture!"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default modal-button">Edit</button>
+                </div>
+              </div>
+            </form>
+            <!-- end form for Edit Image modal-->
+          </div>
+        </div>
+      </div>
+      <!-- Edit Comment Modal - End -->
 
       <footer id="footer"></footer>
 
