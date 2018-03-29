@@ -167,13 +167,22 @@
       <div class="upload-images-page-wrapper" id="upload-images-page">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6">
-              <div class="uploader">
+            <div class="col-md-6" style="text-align: center">
                 <form id="image-upload-form" enctype="multipart/form-data">
-                  <input type="file" id="upload-btn" name="image[file]">
+                  <div class="form-group image-details-group">
+                    <input type="text" class="image-details-input" name="image[title]" placeholder="Title" required>
+                  </div>
+                  <div class="form-group image-details-group">
+                    <input type="text" class="image-details-input" name="image[description]" placeholder="Description" required>
+                  </div>
+                  <div class="form-group image-details-group">
+                    <i class="fas fa-plus add-tag-btn" id="add-tag-btn"></i>
+                    <input type="text" class="image-details-input" id="image-tages" placeholder="Tags">
+                    <p class="help-block">Additional tag inputs show below.</p>
+                  </div>
+                  <input type="file" id="upload-btn" name="image[file]" required>
                   <input type="submit">
                 </form>
-              </div>
             </div>
             <div class="col-md-6">
               <div class="row">
@@ -199,23 +208,6 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6" style="text-align:center">
-                <form id="image-details">
-                  <div class="form-group image-details-group">
-                    <input type="text" class="image-details-input" name="image[title]" placeholder="Title">
-                  </div>
-                  <div class="form-group image-details-group">
-                    <input type="text" class="image-details-input" name="image[description]" placeholder="Description">
-                  </div>
-                  <div class="form-group image-details-group">
-                    <i class="fas fa-plus add-tag-btn" id="add-tag-btn"></i>
-                    <input type="text" class="image-details-input" id="image-tages" placeholder="Tags">
-                    <p class="help-block">Additional tag inputs show below.</p>
-                  </div>
-                </form>
-            </div>
-        </div>
       </div>
       </div>
       <!-- Bootstrap form ends -->

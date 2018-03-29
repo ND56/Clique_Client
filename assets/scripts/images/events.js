@@ -13,19 +13,27 @@ const imagesHandlers = function () {
 }
 
 const onUploadImage = function (event) {
-  console.log(event.target)
   event.preventDefault()
+  const file = $("input[type=file]").get(0).files[0]
+  console.log(file)
+  const imageRow = `
+    <div class='row image-table-row'>
+      <div class="col-md-2 image-table-col"><img src="https://i.imgur.com/Z48QqPW.jpg" class="thumbnail"></div>
+      <div class="col-md-3 image-table-col">` + file.name + `</div>
+      <div class="col-md-2 image-table-col">` + file.size + `</div>
+      <div class="col-md-2 image-table-col">` + file.type + `</div>
+      <div class="col-md-3 image-table-col" id="status"></div>
+    </div>
+  `
+  $('.upload-info').append(imageRow)
   const formData = new FormData(event.target)
-  const imageDetails = getFormFields(document.forms.namedItem('image-details'))
-  formData.append('image[title]', imageDetails.image.title)
-  formData.append('image[description]', imageDetails.image.description)
-  // formData.append('image[tags]', imageDetails.image.tags)
+  const imageDetails = getFormFields(event.target)
   formData.append('image[longitude]', store.exifData.longitude)
   formData.append('image[latitude]', store.exifData.latitude)
   formData.append('image[city]', store.exifData.city)
   formData.append('image[state]', store.exifData.state)
   formData.append('image[country]', store.exifData.country)
-
+  console.log(formData)
   api.uploadImage(formData)
     .then(ui.onUploadImageSuccess)
     .catch(ui.onUploadImageError)
