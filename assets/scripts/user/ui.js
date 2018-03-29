@@ -243,6 +243,8 @@ const deleteImageFailure = () => {
 
 const populateCarouselModalSuccess = (apiResponse) => {
   console.log(apiResponse.image)
+  $('#city').text(apiResponse.image.city)
+  $('#state').text(apiResponse.image.state)
   $('#single-title').text(apiResponse.image.title)
   $('#single-image').css('background-image', 'url(' + apiResponse.image.url + ')')
   $('#single-description-span').text(apiResponse.image.description)
