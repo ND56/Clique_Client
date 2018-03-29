@@ -1,6 +1,6 @@
 curl "http://localhost:4741/images" \
   --include \
   --request GET \
-  --header "Authorization: Token token=9PQ0QXDnaS0X07gV0xws/aOi+Q6K6wd180fB4h3md7w=--Ld12HIIImIByJKZ13p0qnHkpUIHxiYeqMlNy70rfwsc="
+  --header "Authorization: Token token=E/j45/rWe2WNX9HSRiy1OZgVALC0P1ZGfDfOYpMdLMs=--wB0AAjZCrxbUgI2OSuGjF/gZ3v+13ZMKo1oofJpKVL0="
 
 echo

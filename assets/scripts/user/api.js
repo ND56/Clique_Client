@@ -70,6 +70,18 @@ const getImages = () => {
   })
 }
 
+const findByDistance = () => {
+  return $.ajax({
+    url: apiUrl + '/findbydistance',
+    // ?latitude=' + store.user.latitude + '?longitude=' + store.user.longitude,
+    method: 'GET',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 const deleteImage = () => {
   return $.ajax({
     url: apiUrl + '/images/' + store.currentImageID,
@@ -133,5 +145,6 @@ module.exports = {
   deleteImage,
   findImageById,
   editImage,
-  updateUser
+  updateUser,
+  findByDistance
 }

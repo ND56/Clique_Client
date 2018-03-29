@@ -29,18 +29,20 @@ const onSignIn = function (event) {
     // passing geo-locator the apiResponse so it can use in its update user requests
     .then(function (signInApiResponse) {
       store.user = signInApiResponse.user
+      console.log('store.user.token is', store.user.token)
       return signInApiResponse
     })
     .then(signInApiResponse => userLocator.getUserLocation(signInApiResponse))
     // The geolocator updates user with lat/long and returns the sign-in apiResponse
     // if lat is truthy, continue the chain
     .then(function (geoResponse) {
-      console.log('events line 34 geoResponse', geoResponse)
+      console.log('events line 39 geoResponse', geoResponse)
       return geoResponse
     })
     .then(function (updateApiResponse) {
       if (updateApiResponse.user.latitude) {
         ui.onSignInSuccess(updateApiResponse)
+        // api.findByDistance()
         api.getImages()
           .then(ui.populateCarouselSuccess)
           .catch(ui.populateCarouselFailure)
