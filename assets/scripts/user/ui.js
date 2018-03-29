@@ -147,19 +147,23 @@ const myImagesView = (apiResponse) => {
   const personalImagesArr = apiResponse.images.filter(function (image) {
     return image._owner.email === store.user.email
   })
-  // turn each tags array into a string for easy DOM reading
-  for (let i = 0; i < personalImagesArr.length; i++) {
-    personalImagesArr[i].tags = personalImagesArr[i].tags.join(' ')
+  if (personalImagesArr.length === 0) {
+    $('#my-images-readout-wrapper').append('<div class="no-images" id="no-images">You have no images!<br><br>Upload some images to share with your community!</div>')
+  } else {
+    // turn each tags array into a string for easy DOM reading
+    for (let i = 0; i < personalImagesArr.length; i++) {
+      personalImagesArr[i].tags = personalImagesArr[i].tags.join(' ')
+    }
+    // pass modified array with string for tags to handlebars
+    const myImagesReadout = templateMyImages({ images: personalImagesArr })
+    $('#my-images-readout-wrapper').append(myImagesReadout)
+    // using jquery to add correct image to each handlebars element
+    for (let i = 0; i < apiResponse.images.length; i++) {
+      $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
+    }
+    // populate images - END
+    console.log(personalImagesArr)
   }
-  // pass modified array with string for tags ro handlebars
-  const myImagesReadout = templateMyImages({ images: personalImagesArr })
-  $('#my-images-readout-wrapper').append(myImagesReadout)
-  // using jquery to add correct image to each handlebars element
-  for (let i = 0; i < apiResponse.images.length; i++) {
-    $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
-  }
-  // populate images - END
-  console.log(personalImagesArr)
 }
 
 const populateCarouselSuccess = (apiResponse) => {
@@ -171,35 +175,37 @@ const populateCarouselSuccess = (apiResponse) => {
   })
   // filter array by distance
   const geoArr = publicImagesArr.filter(function (image) {
-    // populates an array with elements that evaluate to truthy based
-    // on what you put here
     image.distance = geolib.getDistance(
       {latitude: image.latitude, longitude: image.longitude},
       {latitude: store.user.latitude, longitude: store.user.longitude})
     console.log('LINE 166', image.distance)
     return image.distance < 25000
-    // element.distance < 25000
-    // const distance = geolib.getDistance(
-    //   {latitude: publicImagesArr[i].latitude, longitude: publicImagesArr[i].longitude},
-    //   {latitude: store.user.latitude, longitude: store.user.longitude})
-    //   // 25000 (~15 miles)
-    // console.log('image is', image)
-    // console.log('distance is', distance)
-    // console.log('distance is type', typeof distance)
-    // console.log('publicImagesArr is', publicImagesArr)
-    // i++
   })
-  console.log('LINE 179', geoArr)
-  // pass the geoArr to handlebars
-  // run first public image through this handlebars to set active status in carousel
-  const carouselReadoutFirstImage = templateCarouselFirstImage({ image: geoArr[0] })
-  // remove first image from array
-  geoArr.splice(0, 1)
-  // run subsequent public images through this handlebars so active status not set
-  const carouselReadout = templateCarousel({ images: geoArr })
-  // append images to DOM
-  $('#carousel-inner').append(carouselReadoutFirstImage)
-  $('#carousel-inner').append(carouselReadout)
+  if (geoArr.length === 0) {
+    // pass the public array to handlebars
+    // run first public image through this handlebars to set active status in carousel
+    notification.staticToast('info', 'Empty Community!', 'Looks like no one in your community has uploaded an image. For now, here\'s a look at images from around the world!', '#1F888F')
+    $('#carousel-header').text('Public Images')
+    const carouselReadoutFirstImage = templateCarouselFirstImage({ image: publicImagesArr[0] })
+    // remove first image from array
+    publicImagesArr.splice(0, 1)
+    // run subsequent public images through this handlebars so active status not set
+    const carouselReadout = templateCarousel({ images: publicImagesArr })
+    // append images to DOM
+    $('#carousel-inner').append(carouselReadoutFirstImage)
+    $('#carousel-inner').append(carouselReadout)
+  } else {
+    // pass the geoArr to handlebars
+    // run first public image through this handlebars to set active status in carousel
+    const carouselReadoutFirstImage = templateCarouselFirstImage({ image: geoArr[0] })
+    // remove first image from array
+    geoArr.splice(0, 1)
+    // run subsequent public images through this handlebars so active status not set
+    const carouselReadout = templateCarousel({ images: geoArr })
+    // append images to DOM
+    $('#carousel-inner').append(carouselReadoutFirstImage)
+    $('#carousel-inner').append(carouselReadout)
+  }
 }
 
 const populateCarouselFailure = () => {
