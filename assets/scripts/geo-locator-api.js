@@ -66,6 +66,7 @@ const getUserLocation = function (signInApiResponse) {
       console.log(error.message)
       reject(error)
     }, {
+      timeout: 8000, // 8 seconds
       maximumAge: 8640000000
       // third param is an optional PositionObject that allows for a small
       // amount of fine-tuning. Here, we're allowing subsequent geolocator

@@ -11,7 +11,7 @@ const onSignInSuccess = function (apiResponse) {
   // things like user._id, user.email, user.token, etc.
   // store.user = apiResponse.user
   // end
-  notification.universalToast('success', 'Success!', 'Successfully signed in!')
+  notification.staticToast('success', 'Success!', 'Successfully signed in!', '#1F888F')
   // change placeholder in dropdown label to user email
   $('#user-email-dropdown').text(store.user.email)
   // end
@@ -33,8 +33,10 @@ const onSignInSuccess = function (apiResponse) {
 
 const onSignInFailure = function (error) {
   if (error.code === 1) {
-    notification.staticToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.')
+    // user rejects geo locator
+    notification.staticToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.', 'red')
   } else {
+    // wrong password, etc.
     notification.alert('danger', 'Login Unsuccessful. Please make sure you used the correct password!')
   }
   console.log('sign-in failure', store.user)
@@ -75,6 +77,7 @@ const onLogOutSuccess = () => {
   $('#footer').hide()
   $('#auth-view').show()
   $('#carousel-inner').empty()
+  $('#carousel-header').text('Your Community') // in case timeout changed it
   store.view = 'landing page'
 }
 
@@ -240,6 +243,11 @@ const noGeoTracking = () => {
   notification.universalToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.')
 }
 
+const timeOutMessage = () => {
+  notification.staticToast('info', 'Location Tracker Timed-Out!', 'Geolocation was taking too long. To avoid excessive wait times, we\'re populating your carousel with images from around the world (instead of your local community).', '#1F888F')
+  $('#carousel-header').text('Public Images')
+}
+
 module.exports = {
   onSignInSuccess,
   onSignInFailure,
@@ -262,5 +270,6 @@ module.exports = {
   toggleEditImageModalFailure,
   editImageSuccess,
   editImageFailure,
-  noGeoTracking
+  noGeoTracking,
+  timeOutMessage
 }
