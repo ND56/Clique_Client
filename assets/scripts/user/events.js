@@ -80,7 +80,6 @@ const onLogOut = (event) => {
   api.logOut()
     .then(ui.onLogOutSuccess)
     .catch(ui.onLogOutFailure)
-  store.view = 'landing page'
   // emptying my images view so it doesn't duplicate on return to my images
   $('#my-images-readout-wrapper').empty()
 }

@@ -25,9 +25,10 @@ const onSignInSuccess = function (apiResponse) {
   $('#login-form').each(function () {
     this.reset()
   })
-
   // storing view location to inform dom manipulation (e.g., nav button options)
+  console.log('line 29', store.view)
   store.view = 'carousel'
+  console.log('line 31', store.view)
   // end
 }
 
@@ -59,6 +60,7 @@ const onSignUpFailure = function () {
 }
 
 const onLogOutSuccess = () => {
+  console.log(store.view)
   if (store.view === 'upload images') {
     $('#upload-images-page').hide()
     $('#carousel-li a').text('Upload Image')
@@ -77,8 +79,11 @@ const onLogOutSuccess = () => {
   $('#footer').hide()
   $('#auth-view').show()
   $('#carousel-inner').empty()
+  $('#carousel-view').hide()
+  $('#upload-images-page').hide()
+  $('#my-images-page').hide()
   $('#carousel-header').text('Your Community') // in case timeout changed it
-  store.view = 'landing page'
+  console.log(store.view)
 }
 
 const onLogOutFailure = (apiResponse) => {
@@ -101,6 +106,7 @@ const onChangePwdFailure = () => {
 }
 
 const uploadImagesView = () => {
+  console.log('line 107', store.view)
   if (store.view === 'carousel') {
     $('#carousel-view').hide()
     $('#upload-images-page').show()
@@ -114,10 +120,12 @@ const uploadImagesView = () => {
     $('#upload-image-li').prop('id', 'my-images-li')
   }
   store.view = 'upload images'
+  console.log('line 121', store.view)
 }
 
 const myImagesView = (apiResponse) => {
   // updating nav bar - START
+  console.log('line 126', store.view)
   if (store.view === 'carousel') {
     $('#carousel-view').hide()
     $('#my-images-page').show()
@@ -130,7 +138,9 @@ const myImagesView = (apiResponse) => {
     $('#my-images-li a').text('Upload Image')
     $('#my-images-li').prop('id', 'upload-image-li')
   }
+  console.log('line 139', store.view)
   store.view = 'my images'
+  console.log('line 141', store.view)
   // populate images - START
   // filtering API response for user-owned images
   const personalImagesArr = apiResponse.images.filter(function (image) {
@@ -183,7 +193,9 @@ const returnToCarouselView = () => {
     $('#carousel-li a').text('My Images')
     $('#carousel-li').prop('id', 'my-images-li')
   }
+  console.log('line 194', store.view)
   store.view = 'carousel'
+  console.log('line 196', store.view)
 }
 
 const deleteImageSuccess = () => {
