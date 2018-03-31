@@ -83,11 +83,16 @@ const onChangePwdSuccess = () => {
   $('#change-pw-form').each(function () {
     this.reset()
   })
-  notification.alert('success', 'Password Successfully Changed')
+  notification.universalToast('success', 'Success!', 'Password successfully changed.')
 }
 
 const onChangePwdFailure = () => {
-  notification.alert('danger', 'Failed to Edit Password')
+  $('#change-pw-modal').modal('hide')
+  // clearing change pwd form on success
+  $('#change-pw-form').each(function () {
+    this.reset()
+  })
+  notification.universalToast('error', 'Error!', 'Failed to edit password. Make sure you\'re entering the correct password!')
 }
 
 const uploadImagesView = () => {
@@ -319,6 +324,10 @@ const editCommentFailure = function () {
   notification.universalToast('error', 'Failed Comment', 'Failed to post your comment. The server might be down; try again later!')
 }
 
+const myImagesViewFailure = () => {
+  notification.universalToast('error', 'Failed to Load', 'Failed to load your images. The server might be down; try again later!')
+}
+
 module.exports = {
   onSignInSuccess,
   onSignInFailure,
@@ -347,5 +356,6 @@ module.exports = {
   addCommentFailure,
   populateEditModal,
   editCommentSuccess,
-  editCommentFailure
+  editCommentFailure,
+  myImagesViewFailure
 }

@@ -97,7 +97,7 @@ const onSelectViewMyImagesView = (event) => {
   event.preventDefault()
   api.getImages()
     .then(ui.myImagesView)
-    .catch(console.error)
+    .catch(ui.myImagesViewFailure)
 }
 
 const onReturnToCarouselView = (event) => {
