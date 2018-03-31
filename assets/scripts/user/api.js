@@ -35,8 +35,6 @@ const changePw = function (data) {
 }
 
 const logOut = () => {
-  console.log('user ID is', store.user._id)
-  console.log('user token is', store.user.token)
   return $.ajax({
     url: apiUrl + '/sign-out/' + store.user._id,
     method: 'DELETE',
@@ -117,8 +115,8 @@ const editImage = (editImgData) => {
 }
 
 const updateUser = (latitude, longitude, apiResponse) => {
-  console.log('line 106 in API', latitude)
-  console.log('line 107 in API', apiResponse)
+  store.user.latitude = latitude
+  store.user.longitude = longitude
   return $.ajax({
     url: apiUrl + '/user-location/' + apiResponse.user._id,
     method: 'PATCH',
