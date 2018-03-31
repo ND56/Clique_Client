@@ -31,12 +31,12 @@ The site is optimized for GPS-enabled cameras.  The majority of smartphones and 
   3. Google Reverse Geocoding API
 
 ## Client-specific Planned Future Enhancements
-1. [Feature Description] - Allow for a user definable geographical radius within which to display the photos from the database
-2. [Feature Description] - Fix image orientation issue for smartphone photos taken in the upright position
-3. [Feature Description] - Allow users to manually specify the location info for photos without embedded EXIF data
-4. [Feature Description] - Improve geolocation API performance and reliability
-5. [Feature Description] - Add search capability using tags or other metadata
-6. [Feature Description] - Populate the carousel to display most recent images first
+1. [`Feature Description`] - Allow for a user definable geographical radius within which to display the photos from the database
+2. [`Feature Description`] - Fix image orientation issue for smartphone photos taken in the upright position
+3. [`Feature Description`] - Allow users to manually specify the location info for photos without embedded EXIF data
+4. [`Feature Description`] - Improve geolocation API performance and reliability
+5. [`Feature Description`] - Add search capability using tags or other metadata
+6. [`Feature Description`] - Populate the carousel to display most recent images first
 
 ## Entity Relationship Diagram, User Stories, & Wireframes
 The ERD and wireframes for this project can be found at https://imgur.com/a/mzRop
