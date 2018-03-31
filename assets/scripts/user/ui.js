@@ -3,19 +3,12 @@ const store = require('../store.js')
 const templateMyImages = require('../templates/my-images-readout.handlebars')
 const templateCarouselFirstImage = require('../templates/carousel-readout-first-image.handlebars')
 const templateCarousel = require('../templates/carousel-readout.handlebars')
-// const templateComments = require('../templates/comments-readout.handlebars')
-const apiUrl = require('../config')
 const geolib = require('geolib')
 
 const onSignInSuccess = function (apiResponse) {
-  // storing API response (i.e., user object) to have quick access to
-  // things like user._id, user.email, user.token, etc.
-  // store.user = apiResponse.user
-  // end
   notification.staticToast('success', 'Success!', 'Successfully signed in!', '#1F888F')
   // change placeholder in dropdown label to user email
   $('#user-email-dropdown').text(store.user.email)
-  // end
   // making sure appropriate views/nav options are active
   $('#footer').show()
   $('#auth-view').hide()
@@ -28,10 +21,7 @@ const onSignInSuccess = function (apiResponse) {
     this.reset()
   })
   // storing view location to inform dom manipulation (e.g., nav button options)
-  console.log('line 29', store.view)
   store.view = 'carousel'
-  console.log('line 31', store.view)
-  // end
 }
 
 const onSignInFailure = function (error) {
@@ -42,8 +32,6 @@ const onSignInFailure = function (error) {
     // wrong password, etc.
     notification.alert('danger', 'Login Unsuccessful. Please make sure you used the correct password!')
   }
-  console.log('sign-in failure', store.user)
-  console.log(error)
 }
 
 const onSignUpSuccess = function () {
@@ -54,7 +42,6 @@ const onSignUpSuccess = function () {
   $('#sign-up-form').each(function () {
     this.reset()
   })
-  // end
 }
 
 const onSignUpFailure = function () {
@@ -62,7 +49,6 @@ const onSignUpFailure = function () {
 }
 
 const onLogOutSuccess = () => {
-  console.log(store.view)
   if (store.view === 'upload images') {
     $('#upload-images-page').hide()
     $('#carousel-li a').text('Upload Image')
@@ -85,12 +71,10 @@ const onLogOutSuccess = () => {
   $('#upload-images-page').hide()
   $('#my-images-page').hide()
   $('#carousel-header').text('Your Community') // in case timeout changed it
-  console.log(store.view)
 }
 
 const onLogOutFailure = (apiResponse) => {
   notification.alert('danger', 'Log-Out Unsuccessful')
-  console.log(apiResponse)
 }
 
 const onChangePwdSuccess = () => {
@@ -99,7 +83,6 @@ const onChangePwdSuccess = () => {
   $('#change-pw-form').each(function () {
     this.reset()
   })
-  // end
   notification.alert('success', 'Password Successfully Changed')
 }
 
@@ -108,7 +91,6 @@ const onChangePwdFailure = () => {
 }
 
 const uploadImagesView = () => {
-  console.log('line 107', store.view)
   if (store.view === 'carousel') {
     $('#carousel-view').hide()
     $('#upload-images-page').show()
@@ -122,12 +104,10 @@ const uploadImagesView = () => {
     $('#upload-image-li').prop('id', 'my-images-li')
   }
   store.view = 'upload images'
-  console.log('line 121', store.view)
 }
 
 const myImagesView = (apiResponse) => {
   // updating nav bar - START
-  console.log('line 126', store.view)
   if (store.view === 'carousel') {
     $('#carousel-view').hide()
     $('#my-images-page').show()
@@ -140,9 +120,7 @@ const myImagesView = (apiResponse) => {
     $('#my-images-li a').text('Upload Image')
     $('#my-images-li').prop('id', 'upload-image-li')
   }
-  console.log('line 139', store.view)
   store.view = 'my images'
-  console.log('line 141', store.view)
   // populate images - START
   // filtering API response for user-owned images
   const personalImagesArr = apiResponse.images.filter(function (image) {
@@ -163,23 +141,24 @@ const myImagesView = (apiResponse) => {
       $("div[data-id='image-" + apiResponse.images[i]._id + "']").css('background-image', 'url(' + apiResponse.images[i].url + ')')
     }
     // populate images - END
-    console.log(personalImagesArr)
   }
 }
 
 const populateCarouselSuccess = (apiResponse) => {
   // remove user-owned images from the apiRespose
-  console.log('populateCarouselSuccess apiREsponse is', apiResponse)
   const publicImagesArr = apiResponse.images.filter(function (image) {
     return image._owner.email !== store.user.email
     // return image._owner.email === store.user.email
   })
   // filter array by distance
   const geoArr = publicImagesArr.filter(function (image) {
+    const imageLatitude = image.latitude.toString()
+    const imageLongitude = image.longitude.toString()
+    const userLatitude = store.user.latitude.toString()
+    const userLongitude = store.user.longitude.toString()
     image.distance = geolib.getDistance(
-      {latitude: image.latitude, longitude: image.longitude},
-      {latitude: store.user.latitude, longitude: store.user.longitude})
-    console.log('LINE 166', image.distance)
+      {latitude: imageLatitude, longitude: imageLongitude},
+      {latitude: userLatitude, longitude: userLongitude})
     return image.distance < 25000
   })
   if (geoArr.length === 0) {
@@ -210,7 +189,6 @@ const populateCarouselSuccess = (apiResponse) => {
 }
 
 const populateCarouselFailure = () => {
-  console.log('This will not populate the carousel')
   notification.universalToast('error', 'Error!', 'Failed to populate carousel!')
 }
 
@@ -227,9 +205,7 @@ const returnToCarouselView = () => {
     $('#carousel-li a').text('My Images')
     $('#carousel-li').prop('id', 'my-images-li')
   }
-  console.log('line 194', store.view)
   store.view = 'carousel'
-  console.log('line 196', store.view)
 }
 
 const deleteImageSuccess = () => {
@@ -242,7 +218,6 @@ const deleteImageFailure = () => {
 }
 
 const populateCarouselModalSuccess = (apiResponse) => {
-  console.log(apiResponse.image)
   $('#city').text(apiResponse.image.city)
   $('#state').text(apiResponse.image.state)
   $('#single-title').text(apiResponse.image.title)
@@ -264,7 +239,6 @@ const populateCarouselModalSuccess = (apiResponse) => {
     $('#' + newTableId + ' #new-commentor').attr('id', newCommentorSpanId)
     $('#' + newCommentSpanId).text(apiResponse.image.comments[i][0])
     $('#' + newCommentorSpanId).text(apiResponse.image.comments[i][1])
-    console.log(apiResponse.image.comments)
     if (apiResponse.image.comments[i][1] === store.user.email) {
       $('#' + newTableId).append('<button class="btn btn-default edit-comment-button" data-id="' + apiResponse.image.comments[i][0] + '" id="' + apiResponse.image.comments[i][2] + '">Edit</button>')
     }
@@ -287,8 +261,6 @@ const toggleEditImageModalFailure = () => {
 }
 
 const editImageSuccess = () => {
-  console.log('Edit worked!')
-  console.log(store.recentEditedData)
   // reset modal and hide
   $('#edit-image-form').each(function () {
     this.reset()
@@ -316,7 +288,6 @@ const timeOutMessage = () => {
 const addCommentSuccess = (apiResponse) => {
   const commentsArrLength = apiResponse.image.comments.length
   const index = commentsArrLength - 1
-  console.log(apiResponse)
   $('#submit-comment-form').each(function () {
     this.reset()
   })

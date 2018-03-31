@@ -4,11 +4,6 @@ const ui = require('./ui')
 const store = require('../store.js')
 const userLocator = require('../geo-locator-api')
 
-// const authHandlers = function () {
-//   $('#login').on('submit', onSignIn)
-//   $('#sign-up-toggle').on('click', onToggleSignUp)
-// }
-
 const onToggleSignUp = (event) => {
   event.preventDefault()
   $('#login').hide()
@@ -24,31 +19,26 @@ const onToggleSignIn = (event) => {
 const onSignIn = function (event) {
   event.preventDefault()
   const data = getFormFields(event.target)
-  console.log(data)
   api.signIn(data)
     // passing geo-locator the apiResponse so it can use in its update user requests
     .then(function (signInApiResponse) {
       store.user = signInApiResponse.user
-      console.log('store.user.token is', store.user.token)
       return signInApiResponse
     })
     .then(signInApiResponse => userLocator.getUserLocation(signInApiResponse))
     // The geolocator updates user with lat/long and returns the sign-in apiResponse
     // if lat is truthy, continue the chain
     .then(function (geoResponse) {
-      console.log('events line 39 geoResponse', geoResponse)
       return geoResponse
     })
-    .then(function (updateApiResponse) {
-      if (updateApiResponse.user.latitude) {
-        ui.onSignInSuccess(updateApiResponse)
-        // api.findByDistance()
+    .then(function (updatedApiResponse) {
+      if (updatedApiResponse.user.latitude) {
+        ui.onSignInSuccess(updatedApiResponse)
         api.getImages()
           .then(ui.populateCarouselSuccess)
           .catch(ui.populateCarouselFailure)
         store.view = 'carousel'
       } else {
-        console.log('No geo tracking!')
         ui.noGeoTracking()
       }
     })
@@ -69,7 +59,6 @@ const onSignIn = function (event) {
 const onSignUp = (event) => {
   event.preventDefault()
   const packagedSignUpData = getFormFields(event.target)
-  console.log(packagedSignUpData)
   api.signUp(packagedSignUpData)
     .then(ui.onSignUpSuccess)
     .catch(ui.onSignUpFailure)
@@ -77,8 +66,6 @@ const onSignUp = (event) => {
 
 const onLogOut = (event) => {
   event.preventDefault()
-  console.log('Log Out button works!')
-  console.log(store.user.token)
   api.logOut()
     .then(ui.onLogOutSuccess)
     .catch(ui.onLogOutFailure)
@@ -142,7 +129,6 @@ const onSelectCarousel = (event) => {
 
 const onToggleEditImageModal = (event) => {
   event.preventDefault()
-  console.log('Button works!')
   store.currentImageID = $(event.target).data().edit
   api.findImageById()
     .then(ui.toggleEditImageModalSuccess)
@@ -151,21 +137,16 @@ const onToggleEditImageModal = (event) => {
 
 const onEditImage = (event) => {
   event.preventDefault()
-  // for some reason, I had to pass event.target.form; no idea why it's
-  // different for this form than for other forms!
   const editImageData = getFormFields(event.target)
   store.recentEditedData = editImageData
   api.editImage(editImageData)
     .then(ui.editImageSuccess)
     .catch(ui.editImageFailure)
-  // storing edited image data for immediate DOM manipulation
 }
 
 const onAddComment = (event) => {
   event.preventDefault()
   const packagedData = getFormFields(event.target)
-  console.log('Submit works!')
-  console.log(packagedData)
   // save for DOM manipulation
   store.mostRecentComment = packagedData.image.comments
   api.createComment(packagedData)
@@ -175,11 +156,8 @@ const onAddComment = (event) => {
 
 const onToggleEditComment = function (event) {
   event.preventDefault()
-  console.log('Button works')
   $('#single-image-readout-modal').modal('hide')
   $('#edit-comment-modal').modal('show')
-  console.log(event.target)
-  console.log(event.target.data)
   const data = $(event.target).data()
   const id = $(event.target).val('id')
   const oldCommentText = data.id
@@ -191,9 +169,7 @@ const onToggleEditComment = function (event) {
 const onSubmitComment = function (event) {
   event.preventDefault()
   const newData = getFormFields(event.target)
-  console.log(newData)
   newData.image.commentId = store.commentId
-  console.log(newData)
   api.editComment(newData)
     .then(ui.editCommentSuccess)
     .catch(ui.editCommentFailure)
