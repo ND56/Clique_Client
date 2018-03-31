@@ -249,7 +249,7 @@ img.img-constrain {
   padding-top: 16px;
   margin-left: 11px;
   margin-right: 11px;
-  height: 322px;
+  max-height: 322px;
 }
 
 .single-description,
@@ -356,9 +356,16 @@ img.img-constrain {
   width: 595px !important;
 }
 
+#single-description-span {
+  color: $tangerine;
+}
+
 .edit-comment-button {
-  display: block;
-  margin-left: 44%;
+  display: inline;
+  margin-left: 91%;
+  position: relative;
+  bottom: 43px;
+  margin-bottom: -8%;
 }
 //
 // .commentor-1 {
