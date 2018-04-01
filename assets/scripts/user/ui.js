@@ -25,6 +25,9 @@ const onSignInSuccess = function (apiResponse) {
 }
 
 const onSignInFailure = function (error) {
+  $('#login-form').each(function () {
+    this.reset()
+  })
   if (error.code === 1) {
     // user rejects geo locator
     notification.staticToast('error', 'Sorry!', 'This app requires the use of location tracking. Please allow location tracking in order to proceed. If you already rejected our tracking request, you will need to reset that decision in your browser settings.', 'red')
@@ -45,6 +48,9 @@ const onSignUpSuccess = function () {
 }
 
 const onSignUpFailure = function () {
+  $('#sign-up-form').each(function () {
+    this.reset()
+  })
   notification.alert('danger', 'Sign Up Unsuccessful')
 }
 
