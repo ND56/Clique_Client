@@ -1,6 +1,14 @@
 # Clique - Photos near you wherever you happen to be!
 Clique is a geolocation-based file sharing client designed to help you explore your surroundings wherever you happen to be.  Just sign in, upload, your photos, and your community carousel will display photos uploaded by other members within your geographical area.
 
+## Repository links
+[Client Repo] - https://github.com/FiniteL00p/pctr
+[Backend/API Repo] - https://github.com/FiniteL00p/pctr_api
+
+## Deployed links
+[Client] - https://finitel00p.github.io/pctr/
+[Backend/API] - https://file-bucket-api.herokuapp.com/
+
 ## Overview
 When you upload a photo our app will use the photo's embedded EXIF data to determine where the photo was taken and automatically add it to the "Your Community" carousel. What's more, it will follow you wherever you go!  In Amsterdam on Tuesday but will be in Miami on Friday?  No problem!  The site will use your geolocation to show you photos other users have taken nearby and uploaded to the site.
 
@@ -28,6 +36,7 @@ The site is optimized for GPS-enabled cameras.  The majority of smartphones and 
 3. [Feature Description] - Allow users to manually specify the location info for photos without embedded EXIF data
 4. [Feature Description] - Improve geolocation API performance and reliability
 5. [Feature Description] - Add search capability using tags or other metadata
+6. [Feature Description] - Populate the carousel to display most recent images first
 
 ## Entity Relationship Diagram, User Stories, & Wireframes
 The ERD and wireframes for this project can be found at https://imgur.com/a/mzRop
