@@ -12,7 +12,6 @@ const imagesHandlers = function () {
   $('#upload-btn').on('change', getExifData)
   $('body').on('click', '.remove-tag', (event) => {
     $(event.target).parent().remove()
-    console.log($(event.target).parent().parent())
     $(event.target).parent().parent().siblings().remove()
   })
 }
