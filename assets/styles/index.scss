@@ -20,6 +20,10 @@ footer {
   background-color: $tangerine;
 }
 
+.remove-tag {
+  margin-right: 10px;
+}
+
 // editing scroll bars - START
 ::-webkit-scrollbar {
     width: 8px;
@@ -486,7 +490,6 @@ img.img-constrain {
 }
 
 #upload-btn {
-  width: 80px;
   float: right;
 }
 

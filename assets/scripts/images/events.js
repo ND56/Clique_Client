@@ -10,6 +10,11 @@ const imagesHandlers = function () {
   $('#add-tag-btn').on('click', ui.addTag)
   $('#image-upload-form').on('submit', onUploadImage)
   $('#upload-btn').on('change', getExifData)
+  $('body').on('click', '.remove-tag', (event) => {
+    $(event.target).parent().remove()
+    console.log($(event.target).parent().parent())
+    $(event.target).parent().parent().siblings().remove()
+  })
 }
 
 const onUploadImage = function (event) {
