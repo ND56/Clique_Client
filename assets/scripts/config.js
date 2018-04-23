@@ -2,7 +2,7 @@
 
 let apiUrl
 const apiUrls = {
-  production: 'https://file-bucket-api.herokuapp.com',
+  production: 'https://wdi-clique-api.herokuapp.com',
   development: 'http://localhost:4741'
 }
 
