@@ -2,7 +2,6 @@
 
 const events = require('./user/events')
 const imagesEvents = require('./images/events')
-// const userLocator = require('./geo-locator-api')
 
 $(() => {
   // userLocator.getUserLocation()

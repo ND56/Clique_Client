@@ -16,35 +16,52 @@ const onToggleSignIn = (event) => {
   $('#login').show()
 }
 
-const onSignIn = function (event) {
+const onSignIn = (event) => {
   event.preventDefault()
-  // show spinner
+  // show loader to user while sign-in executes
   $('#spinner').fadeIn()
+  // create sign-in object from input fields for Clique API call
   const data = getFormFields(event.target)
+  // start sign-in promise chain (see api.js)
   api.signIn(data)
-    // passing geo-locator the apiResponse so it can use in its update user requests
-    .then(function (signInApiResponse) {
+    .then(signInApiResponse => {
+      // store user information in store.js file for later DOM manipulation
+      // due to potential async issues, this has to be an independent step
       store.user = signInApiResponse.user
       return signInApiResponse
     })
+    // pass user sign-in data to geolocation API call (see geo-locator-api.js)
     .then(signInApiResponse => userLocator.getUserLocation(signInApiResponse))
-    // The geolocator updates user with lat/long and returns the sign-in apiResponse
-    // if lat is truthy, continue the chain
-    .then(function (geoResponse) {
-      return geoResponse
-    })
-    .then(function (updatedApiResponse) {
+    // geolocator code updates user lat/long and returns updated user object
+    .then(updatedApiResponse => {
+      // if lat is truthy (i.e., geolocation was successful), continue the chain
       if (updatedApiResponse.user.latitude) {
+        // line 42 just manipulates the DOM to hide/show the appropriate view
+        // and let the user know sign-in was successful; code not included for
+        // brevity
         ui.onSignInSuccess(updatedApiResponse)
+        // lines 47-49 make an index Clique API call for all images and then
+        // populate the user carousel by compaing the updated user geolocation
+        // information with image geolocation information; code not included for
+        // brevity
         api.getImages()
           .then(ui.populateCarouselSuccess)
           .catch(ui.populateCarouselFailure)
+        // updates the "view state" in store file for DOM manipulation purposes
         store.view = 'carousel'
       } else {
+        // if users decline access to their geolocation, they are instructed
+        // that the app requires access to this information; code not included
+        // for brevity
         ui.noGeoTracking()
       }
     })
     .catch(function (error) {
+      // Error code "3" means the geolocation API timed out; we wanted it to
+      // eventually time out so users didn't sit and wait for too long to access
+      // the app. When it times out, a user is allowed to log in and the
+      // carousel is instead populated with images from around the world; code
+      // not included for brevity
       if (error.code === 3) {
         ui.timeOutMessage()
         ui.onSignInSuccess(store.user)
@@ -53,7 +70,7 @@ const onSignIn = function (event) {
           .catch(ui.populateCarouselFailure)
         store.view = 'carousel'
       } else {
-        // hide spinner on failed sign in
+        // other errors result in a failed log-in notice to the user
         $('#spinner').hide()
         ui.onSignInFailure(error)
       }
